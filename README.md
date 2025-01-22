@@ -4,17 +4,21 @@ Canvas Boilerplate is the go-to solution for quickly creating modern canvas piec
 
 1.  Clone the repo:
 
-        git clone https://github.com/christopher4lis/canvas-boilerplate.git
+        git clone https://github.com/robinclarke95/canvas-boilerplate-my-fixes.git
 
-2.  Install dependencies:
+2.  Start vscode
 
-        yarn
+        code .
 
-    or
+        create project_branch
 
+3.  Install dependencies:
+
+        View -> Terminal
+   
         npm install
 
-3.  Run webpack:
+4.  Run webpack:
 
         npm start
 
