@@ -27,7 +27,7 @@ addEventListener('resize', () => {
 })
 
 // Objects
-class Object {
+class particle {
   constructor(x, y, radius, color) {
     this.x = x
     this.y = y
@@ -49,12 +49,12 @@ class Object {
 }
 
 // Implementation
-let objects
+let particles
 function init() {
-  objects = []
+  particles = []
 
   for (let i = 0; i < 400; i++) {
-    objects.push()
+    particles.push()
   }
 }
 
@@ -64,7 +64,7 @@ function animate() {
   c.clearRect(0, 0, canvas.width, canvas.height)
 
   c.fillText('HTML CANVAS BOILERPLATE', mouse.x, mouse.y)
-  objects.forEach(object => {
+  particles.forEach(object => {
    object.update()
   })
 }
