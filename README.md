@@ -10,8 +10,6 @@ Canvas Boilerplate is the go-to solution for quickly creating modern canvas piec
 
         code .
 
-        create project_branch
-
 3.  Install dependencies:
 
         View -> Terminal
@@ -19,6 +17,8 @@ Canvas Boilerplate is the go-to solution for quickly creating modern canvas piec
         npm install
 
 4.  Run webpack:
+
+        create project_branch
 
         npm start
 
