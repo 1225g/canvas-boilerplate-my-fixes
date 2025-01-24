@@ -112,6 +112,10 @@ var canvas = document.querySelector('canvas');
 var c = canvas.getContext('2d');
 canvas.width = innerWidth;
 canvas.height = innerHeight;
+var scroeEl = document.querySelector('#scroeEl');
+var startGameBtn = document.querySelector('#startGameBtn');
+var modalEl = document.querySelector('#modalEl');
+var bigScoreEl = document.querySelector('#bigScoreEl');
 var mouse = {
   x: innerWidth / 2,
   y: innerHeight / 2
@@ -126,19 +130,20 @@ addEventListener('mousemove', function (event) {
 addEventListener('resize', function () {
   canvas.width = innerWidth;
   canvas.height = innerHeight;
-  init();
+  player.x = canvas.width / 2;
+  player.y = canvas.height / 2;
 });
 
 // Objects
-var _Object = /*#__PURE__*/function () {
-  function Object(x, y, radius, color) {
-    _classCallCheck(this, Object);
+var Player = /*#__PURE__*/function () {
+  function Player(x, y, radius, color) {
+    _classCallCheck(this, Player);
     this.x = x;
     this.y = y;
     this.radius = radius;
     this.color = color;
   }
-  _createClass(Object, [{
+  _createClass(Player, [{
     key: "draw",
     value: function draw() {
       c.beginPath();
@@ -153,27 +158,220 @@ var _Object = /*#__PURE__*/function () {
       this.draw();
     }
   }]);
-  return Object;
-}(); // Implementation
-var objects;
-function init() {
-  objects = [];
-  for (var i = 0; i < 400; i++) {
-    objects.push();
+  return Player;
+}();
+var Projectile = /*#__PURE__*/function () {
+  function Projectile(x, y, radius, color, velocity) {
+    _classCallCheck(this, Projectile);
+    this.x = x;
+    this.y = y;
+    this.radius = radius;
+    this.color = color;
+    this.velocity = velocity;
   }
+  _createClass(Projectile, [{
+    key: "draw",
+    value: function draw() {
+      c.beginPath();
+      c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+      c.fillStyle = this.color;
+      c.fill();
+      c.closePath();
+    }
+  }, {
+    key: "update",
+    value: function update() {
+      this.x = this.x + this.velocity.x;
+      this.y = this.y + this.velocity.y;
+      this.draw();
+    }
+  }]);
+  return Projectile;
+}();
+var Enemy = /*#__PURE__*/function () {
+  function Enemy(x, y, radius, color, velocity) {
+    _classCallCheck(this, Enemy);
+    this.x = x;
+    this.y = y;
+    this.radius = radius;
+    this.color = color;
+    this.velocity = velocity;
+  }
+  _createClass(Enemy, [{
+    key: "draw",
+    value: function draw() {
+      c.beginPath();
+      c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+      c.fillStyle = this.color;
+      c.fill();
+      c.closePath();
+    }
+  }, {
+    key: "update",
+    value: function update() {
+      this.x = this.x + this.velocity.x;
+      this.y = this.y + this.velocity.y;
+      this.draw();
+    }
+  }]);
+  return Enemy;
+}();
+var friction = 0.99;
+var Particle = /*#__PURE__*/function () {
+  function Particle(x, y, radius, color, velocity) {
+    _classCallCheck(this, Particle);
+    this.x = x;
+    this.y = y;
+    this.radius = radius;
+    this.color = color;
+    this.velocity = velocity;
+    this.alpha = 1;
+  }
+  _createClass(Particle, [{
+    key: "draw",
+    value: function draw() {
+      c.save();
+      c.globalAlpha = this.alpha;
+      c.beginPath();
+      c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+      c.fillStyle = this.color;
+      c.fill();
+      c.closePath();
+      c.restore();
+    }
+  }, {
+    key: "update",
+    value: function update() {
+      this.draw();
+      this.velocity.x *= friction;
+      this.velocity.y *= friction;
+      this.x = this.x + this.velocity.x;
+      this.y = this.y + this.velocity.y;
+      this.alpha -= 0.01;
+    }
+  }]);
+  return Particle;
+}();
+var x = canvas.width / 2;
+var y = canvas.height / 2;
+var player = new Player(x, y, 10, 'white');
+var projectiles = [];
+var enemies = [];
+var particles = [];
+function init() {
+  player = new Player(x, y, 10, 'white');
+  projectiles = [];
+  enemies = [];
+  particles = [];
+  score = 0;
+  scroeEl.innerHTML = score;
+  bigScoreEl.innerHTML = score;
 }
-
+function spawnEnemies() {
+  setInterval(function () {
+    var radius = Math.random() * (40 - 10) + 10;
+    var x;
+    var y;
+    if (Math.random() < 0.5) {
+      x = Math.random() < 0.5 ? -radius : canvas.width + radius;
+      y = Math.random() * canvas.height;
+    } else {
+      x = Math.random() * canvas.width;
+      y = Math.random() < 0.5 ? -radius : canvas.height + radius;
+    }
+    var color = "hsl(".concat(Math.random() * 360, ", 50%, 50%)");
+    var angle = Math.atan2(canvas.height / 2 - y, canvas.width / 2 - x);
+    var velocity = {
+      x: Math.cos(angle),
+      y: Math.sin(angle)
+    };
+    enemies.push(new Enemy(x, y, radius, color, velocity));
+  }, 1000);
+}
+var animationId;
+var score = 0;
 // Animation Loop
 function animate() {
-  requestAnimationFrame(animate);
-  c.clearRect(0, 0, canvas.width, canvas.height);
-  c.fillText('HTML CANVAS BOILERPLATE', mouse.x, mouse.y);
-  objects.forEach(function (object) {
-    object.update();
+  animationId = requestAnimationFrame(animate);
+  c.fillStyle = 'rgba(0,0,0,0.1)';
+  c.fillRect(0, 0, canvas.width, canvas.height);
+  player.update();
+  particles.forEach(function (particle, index) {
+    if (particle.alpha <= 0) {
+      particles.slice(index, 1);
+    } else {
+      particle.update();
+    }
+  });
+  projectiles.forEach(function (projectile, projectileIndex) {
+    projectile.update();
+
+    // remove projectil from edges of screen
+    if (projectile.x + projectile.radius < 0 || projectile.x - projectile.radius > canvas.width || projectile.y + projectile.radius < 0 || projectile.y - projectile.radius > canvas.height) {
+      setTimeout(function () {
+        projectiles.splice(projectileIndex, 1);
+      }, 0);
+    }
+  });
+  enemies.forEach(function (enemy, index) {
+    enemy.update();
+    var dist = Math.hypot(player.x - enemy.x, player.y - enemy.y);
+
+    // end game
+    if (dist - enemy.radius - player.radius < 1) {
+      cancelAnimationFrame(animationId);
+      modalEl.style.display = 'flex';
+      bigScoreEl.innerHTML = score;
+    }
+    projectiles.forEach(function (projectile, projectileIndex) {
+      var dist = Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y);
+
+      // when projectiles touch enemy
+      if (dist - enemy.radius - projectile.radius < 1) {
+        // create explosions
+        for (var i = 0; i < enemy.radius * 2; i++) {
+          particles.push(new Particle(projectile.x, projectile.y, Math.random() * 2, enemy.color, {
+            x: (Math.random() - 0.5) * (Math.random() * 6),
+            y: (Math.random() - 0.5) * (Math.random() * 6)
+          }));
+        }
+        if (enemy.radius - 10 > 5) {
+          // increase our score
+          score += 100;
+          scroeEl.innerHTML = score;
+          gsap.to(enemy, {
+            radius: enemy.radius - 10
+          });
+          setTimeout(function () {
+            projectiles.splice(projectileIndex, 1);
+          }, 0);
+        } else {
+          // remove form scene altoghether
+          score += 250;
+          scroeEl.innerHTML = score;
+          setTimeout(function () {
+            enemies.splice(index, 1);
+            projectiles.splice(projectileIndex, 1);
+          }, 0);
+        }
+      }
+    });
   });
 }
-init();
-animate();
+addEventListener('click', function (event) {
+  var angle = Math.atan2(event.clientY - canvas.height / 2, event.clientX - canvas.width / 2);
+  var velocity = {
+    x: Math.cos(angle) * 5,
+    y: Math.sin(angle) * 5
+  };
+  projectiles.push(new Projectile(canvas.width / 2, canvas.height / 2, 5, 'white', velocity));
+});
+startGameBtn.addEventListener('click', function () {
+  init();
+  animate();
+  spawnEnemies();
+  modalEl.style.display = 'none';
+});
 })();
 
 /******/ })()
