@@ -1,38 +1,21 @@
 import { randomIntFromRange, randomColor, distance } from './utils'
 
+//npm install @chriscourses/perlin-noise
+import { noise } from '@chriscourses/perlin-noise'
+
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 
 canvas.width = innerWidth
 canvas.height = innerHeight
 
-const mouse = {
-  x: innerWidth / 2,
-  y: innerHeight / 2
-}
-
-const colors = ['#2185C5', '#7ECEFD', '#FFF6E5', '#FF7F66']
-
-// Event Listeners
-addEventListener('mousemove', (event) => {
-  mouse.x = event.clientX
-  mouse.y = event.clientY
-})
-
-addEventListener('resize', () => {
-  canvas.width = innerWidth
-  canvas.height = innerHeight
-
-  init()
-})
-
-// Objects
-class Object {
-  constructor(x, y, radius, color) {
+class Circle {
+  constructor(x, y, radius, color, offset) {
     this.x = x
     this.y = y
     this.radius = radius
     this.color = color
+    this.offset = offset
   }
 
   draw() {
@@ -48,26 +31,30 @@ class Object {
   }
 }
 
-// Implementation
-let objects
-function init() {
-  objects = []
+const circles = []
 
-  for (let i = 0; i < 400; i++) {
-    objects.push()
-  }
+for (let i = 0; i < 100; i++) {
+  circles.push(new Circle(-30, -30, 100 * Math.random(), `hsl(${Math.random() * 255}, 100%, 50%)`, i * 0.01));
 }
 
+let time = 0
 // Animation Loop
 function animate() {
   requestAnimationFrame(animate)
-  c.clearRect(0, 0, canvas.width, canvas.height)
+  c.fillStyle = 'rgba(0, 0, 0, 0.01)'
+  c.fillRect(0, 0, canvas.width, canvas.height)
 
-  c.fillText('HTML CANVAS BOILERPLATE', mouse.x, mouse.y)
-  objects.forEach(object => {
-   object.update()
-  })
+  circles.forEach(circle => {
+    circle.x = noise(time + circle.offset + 20) * canvas.width
+    circle.y = noise(time + circle.offset) * canvas.height
+
+    circle.draw()    
+
+  });
+  // circle.update()
+  
+  time += 0.005
+  // console.log(circle.y)
 }
 
-init()
 animate()
