@@ -24,6 +24,21 @@ module.exports = {
   distance: distance
 };
 
+/***/ }),
+
+/***/ "./src/img/spaceship.png":
+/*!*******************************!*\
+  !*** ./src/img/spaceship.png ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__webpack_require__.p + "52a211ddafab2140bf3ab40d76be1e79.png");
+
 /***/ })
 
 /******/ 	});
@@ -77,6 +92,18 @@ module.exports = {
 /******/ 		};
 /******/ 	})();
 /******/ 	
+/******/ 	/* webpack/runtime/global */
+/******/ 	(() => {
+/******/ 		__webpack_require__.g = (function() {
+/******/ 			if (typeof globalThis === 'object') return globalThis;
+/******/ 			try {
+/******/ 				return this || new Function('return this')();
+/******/ 			} catch (e) {
+/******/ 				if (typeof window === 'object') return window;
+/******/ 			}
+/******/ 		})();
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
@@ -93,6 +120,29 @@ module.exports = {
 /******/ 		};
 /******/ 	})();
 /******/ 	
+/******/ 	/* webpack/runtime/publicPath */
+/******/ 	(() => {
+/******/ 		var scriptUrl;
+/******/ 		if (__webpack_require__.g.importScripts) scriptUrl = __webpack_require__.g.location + "";
+/******/ 		var document = __webpack_require__.g.document;
+/******/ 		if (!scriptUrl && document) {
+/******/ 			if (document.currentScript && document.currentScript.tagName.toUpperCase() === 'SCRIPT')
+/******/ 				scriptUrl = document.currentScript.src;
+/******/ 			if (!scriptUrl) {
+/******/ 				var scripts = document.getElementsByTagName("script");
+/******/ 				if(scripts.length) {
+/******/ 					var i = scripts.length - 1;
+/******/ 					while (i > -1 && (!scriptUrl || !/^http(s?):/.test(scriptUrl))) scriptUrl = scripts[i--].src;
+/******/ 				}
+/******/ 			}
+/******/ 		}
+/******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
+/******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
+/******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
+/******/ 		scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
+/******/ 		__webpack_require__.p = scriptUrl + "../";
+/******/ 	})();
+/******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
 // This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
@@ -104,9 +154,11 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ "./src/js/utils.js");
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_utils__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _img_spaceship_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../img/spaceship.png */ "./src/img/spaceship.png");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
 
 var canvas = document.querySelector('canvas');
 var c = canvas.getContext('2d');
@@ -128,17 +180,42 @@ addEventListener('resize', function () {
   canvas.height = innerHeight;
   init();
 });
+var Player = /*#__PURE__*/function () {
+  function Player() {
+    _classCallCheck(this, Player);
+    this.position = {
+      x: 200,
+      y: 200
+    };
+    this.velocity = {
+      x: 0,
+      y: 0
+    };
+    this.image = createImageBitmap;
+    this.width = 100;
+    this.height = 100;
+  }
+  _createClass(Player, [{
+    key: "draw",
+    value: function draw() {
+      c.fillStyle = 'red';
+      c.fillRect(this.position.x, this.position.y, this.width, this.height);
+    }
+  }]);
+  return Player;
+}();
+var player = new Player();
 
 // Objects
 var _Object = /*#__PURE__*/function () {
-  function Object(x, y, radius, color) {
-    _classCallCheck(this, Object);
+  function _Object(x, y, radius, color) {
+    _classCallCheck(this, _Object);
     this.x = x;
     this.y = y;
     this.radius = radius;
     this.color = color;
   }
-  _createClass(Object, [{
+  _createClass(_Object, [{
     key: "draw",
     value: function draw() {
       c.beginPath();
@@ -153,7 +230,7 @@ var _Object = /*#__PURE__*/function () {
       this.draw();
     }
   }]);
-  return Object;
+  return _Object;
 }(); // Implementation
 var objects;
 function init() {
@@ -167,7 +244,8 @@ function init() {
 function animate() {
   requestAnimationFrame(animate);
   c.clearRect(0, 0, canvas.width, canvas.height);
-  c.fillText('HTML CANVAS BOILERPLATE', mouse.x, mouse.y);
+  player.draw();
+  //c.fillText('HTML CANVAS BOILERPLATE', mouse.x, mouse.y)
   objects.forEach(function (object) {
     object.update();
   });

@@ -1,5 +1,7 @@
 import { randomIntFromRange, randomColor, distance } from './utils'
 
+import spaceship from '../img/spaceship.png'
+
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 
@@ -25,6 +27,30 @@ addEventListener('resize', () => {
 
   init()
 })
+
+class Player {
+  constructor() {
+    this.position = {
+      x: 200,
+      y: 200
+    }
+    this.velocity = {
+      x: 0,
+      y: 0
+    }
+
+    this.image =  createImageBitmap
+    this.width = 100
+    this.height = 100
+  }
+
+  draw() {
+    c.fillStyle = 'red'
+    c.fillRect(this.position.x, this.position.y, this.width, this.height)
+  }
+}
+
+const player = new Player()
 
 // Objects
 class Object {
@@ -63,7 +89,8 @@ function animate() {
   requestAnimationFrame(animate)
   c.clearRect(0, 0, canvas.width, canvas.height)
 
-  c.fillText('HTML CANVAS BOILERPLATE', mouse.x, mouse.y)
+  player.draw()
+  //c.fillText('HTML CANVAS BOILERPLATE', mouse.x, mouse.y)
   objects.forEach(object => {
    object.update()
   })
