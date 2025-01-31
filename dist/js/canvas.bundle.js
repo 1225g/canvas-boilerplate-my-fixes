@@ -26,6 +26,21 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./src/img/invader.png":
+/*!*****************************!*\
+  !*** ./src/img/invader.png ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__webpack_require__.p + "4793e7f635a6f442db1aefdfa44b9f2b.png");
+
+/***/ }),
+
 /***/ "./src/img/spaceship.png":
 /*!*******************************!*\
   !*** ./src/img/spaceship.png ***!
@@ -155,72 +170,78 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ "./src/js/utils.js");
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_utils__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _img_spaceship_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../img/spaceship.png */ "./src/img/spaceship.png");
+/* harmony import */ var _img_invader_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../img/invader.png */ "./src/img/invader.png");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 
+
+var scoreEl = document.querySelector('#scoreEl');
 var canvas = document.querySelector('canvas');
 var c = canvas.getContext('2d');
-canvas.width = innerWidth;
-canvas.height = innerHeight;
-var mouse = {
-  x: innerWidth / 2,
-  y: innerHeight / 2
-};
-var colors = ['#2185C5', '#7ECEFD', '#FFF6E5', '#FF7F66'];
-
-// Event Listeners
-addEventListener('mousemove', function (event) {
-  mouse.x = event.clientX;
-  mouse.y = event.clientY;
-});
-addEventListener('resize', function () {
-  canvas.width = innerWidth;
-  canvas.height = innerHeight;
-  init();
-});
+canvas.width = 1024;
+canvas.height = 576;
 var Player = /*#__PURE__*/function () {
   function Player() {
+    var _this = this;
     _classCallCheck(this, Player);
-    this.position = {
-      x: 200,
-      y: 200
-    };
     this.velocity = {
       x: 0,
       y: 0
     };
-    this.image = createImageBitmap;
-    this.width = 100;
-    this.height = 100;
+    this.rotation = 0;
+    this.opacity = 1;
+    var image = new Image();
+    image.src = _img_spaceship_png__WEBPACK_IMPORTED_MODULE_1__["default"];
+    image.onload = function () {
+      var scale = 0.15;
+      _this.image = image;
+      _this.width = image.width * scale;
+      _this.height = image.height * scale;
+      _this.position = {
+        x: canvas.width / 2 - _this.width / 2,
+        y: canvas.height - _this.height - 20
+      };
+    };
   }
   _createClass(Player, [{
     key: "draw",
     value: function draw() {
-      c.fillStyle = 'red';
-      c.fillRect(this.position.x, this.position.y, this.width, this.height);
+      c.save();
+      c.globalAlpha = this.opacity;
+      c.translate(this.position.x + this.width / 2, this.position.y + this.height / 2);
+      c.rotate(this.rotation);
+      c.translate(-this.position.x - this.width / 2, -this.position.y - this.height / 2);
+      c.drawImage(this.image, this.position.x, this.position.y, this.width, this.height);
+      c.restore();
+    }
+  }, {
+    key: "update",
+    value: function update() {
+      if (this.image) {
+        this.draw();
+        this.position.x += this.velocity.x;
+      }
     }
   }]);
   return Player;
 }();
-var player = new Player();
-
-// Objects
-var _Object = /*#__PURE__*/function () {
-  function _Object(x, y, radius, color) {
-    _classCallCheck(this, _Object);
-    this.x = x;
-    this.y = y;
-    this.radius = radius;
-    this.color = color;
+var Projectile = /*#__PURE__*/function () {
+  function Projectile(_ref) {
+    var position = _ref.position,
+      velocity = _ref.velocity;
+    _classCallCheck(this, Projectile);
+    this.position = position;
+    this.velocity = velocity;
+    this.radius = 4;
   }
-  _createClass(_Object, [{
+  _createClass(Projectile, [{
     key: "draw",
     value: function draw() {
       c.beginPath();
-      c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-      c.fillStyle = this.color;
+      c.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
+      c.fillStyle = 'red';
       c.fill();
       c.closePath();
     }
@@ -228,30 +249,391 @@ var _Object = /*#__PURE__*/function () {
     key: "update",
     value: function update() {
       this.draw();
+      this.position.x += this.velocity.x;
+      this.position.y += this.velocity.y;
     }
   }]);
-  return _Object;
-}(); // Implementation
-var objects;
-function init() {
-  objects = [];
-  for (var i = 0; i < 400; i++) {
-    objects.push();
+  return Projectile;
+}();
+var Particle = /*#__PURE__*/function () {
+  function Particle(_ref2) {
+    var position = _ref2.position,
+      velocity = _ref2.velocity,
+      radius = _ref2.radius,
+      color = _ref2.color,
+      fades = _ref2.fades;
+    _classCallCheck(this, Particle);
+    this.position = position;
+    this.velocity = velocity;
+    this.radius = radius;
+    this.color = color;
+    this.opacity = 1;
+    this.fades = fades;
+  }
+  _createClass(Particle, [{
+    key: "draw",
+    value: function draw() {
+      c.save();
+      c.globalAlpha = this.opacity;
+      c.beginPath();
+      c.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
+      c.fillStyle = this.color;
+      c.fill();
+      c.closePath();
+      c.restore();
+    }
+  }, {
+    key: "update",
+    value: function update() {
+      this.draw();
+      this.position.x += this.velocity.x;
+      this.position.y += this.velocity.y;
+      if (this.fades) this.opacity -= 0.01;
+    }
+  }]);
+  return Particle;
+}();
+var InvaderProjectile = /*#__PURE__*/function () {
+  function InvaderProjectile(_ref3) {
+    var position = _ref3.position,
+      velocity = _ref3.velocity;
+    _classCallCheck(this, InvaderProjectile);
+    this.position = position;
+    this.velocity = velocity;
+    this.width = 3;
+    this.height = 10;
+  }
+  _createClass(InvaderProjectile, [{
+    key: "draw",
+    value: function draw() {
+      c.fillStyle = 'white';
+      c.fillRect(this.position.x, this.position.y, this.width, this.height);
+    }
+  }, {
+    key: "update",
+    value: function update() {
+      this.draw();
+      this.position.x += this.velocity.x;
+      this.position.y += this.velocity.y;
+    }
+  }]);
+  return InvaderProjectile;
+}();
+var Invader = /*#__PURE__*/function () {
+  function Invader(_ref4) {
+    var _this2 = this;
+    var position = _ref4.position;
+    _classCallCheck(this, Invader);
+    this.velocity = {
+      x: 0,
+      y: 0
+    };
+    var image = new Image();
+    image.src = _img_invader_png__WEBPACK_IMPORTED_MODULE_2__["default"];
+    image.onload = function () {
+      var scale = 1;
+      _this2.image = image;
+      _this2.width = image.width * scale;
+      _this2.height = image.height * scale;
+      _this2.position = {
+        x: position.x,
+        y: position.y
+      };
+    };
+  }
+  _createClass(Invader, [{
+    key: "draw",
+    value: function draw() {
+      c.drawImage(this.image, this.position.x, this.position.y, this.width, this.height);
+    }
+  }, {
+    key: "update",
+    value: function update(_ref5) {
+      var velocity = _ref5.velocity;
+      if (this.image) {
+        this.draw();
+        this.position.x += velocity.x;
+        this.position.y += velocity.y;
+      }
+    }
+  }, {
+    key: "shoot",
+    value: function shoot(invaderProjectiles) {
+      invaderProjectiles.push(new InvaderProjectile({
+        position: {
+          x: this.position.x + this.width / 2,
+          y: this.position.y + this.height
+        },
+        velocity: {
+          x: 0,
+          y: 5
+        }
+      }));
+    }
+  }]);
+  return Invader;
+}();
+var Grid = /*#__PURE__*/function () {
+  function Grid() {
+    _classCallCheck(this, Grid);
+    this.position = {
+      x: 0,
+      y: 0
+    };
+    this.velocity = {
+      x: 3,
+      y: 0
+    };
+    this.invaders = [];
+    var columns = Math.floor(Math.random() * 10 + 5);
+    var rows = Math.floor(Math.random() * 5 + 2);
+    this.width = columns * 30;
+    for (var x = 0; x < columns; x++) {
+      for (var y = 0; y < rows; y++) {
+        this.invaders.push(new Invader({
+          position: {
+            x: x * 30,
+            y: y * 30
+          }
+        }));
+      }
+    }
+  }
+  _createClass(Grid, [{
+    key: "update",
+    value: function update() {
+      this.position.x += this.velocity.x;
+      this.position.y += this.velocity.y;
+      this.velocity.y = 0;
+      if (this.position.x + this.width >= canvas.width || this.position.x <= 0) {
+        this.velocity.x = -this.velocity.x;
+        this.velocity.y = 30;
+      }
+    }
+  }]);
+  return Grid;
+}();
+var player = new Player();
+var projectiles = [];
+var grids = [];
+var invaderProjectiles = [];
+var particles = [];
+var keys = {
+  a: {
+    pressed: false
+  },
+  d: {
+    pressed: false
+  },
+  space: {
+    pressed: false
+  }
+};
+var frames = 0;
+var randomInterval = Math.floor(Math.random() * 500 + 500);
+var game = {
+  over: false,
+  active: true
+};
+var score = 0;
+for (var i = 0; i < 100; i++) {
+  particles.push(new Particle({
+    position: {
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height
+    },
+    velocity: {
+      x: 0,
+      y: 0.3
+    },
+    radius: Math.random() * 2,
+    color: 'white'
+  }));
+}
+function createParticles(_ref6) {
+  var object = _ref6.object,
+    color = _ref6.color,
+    fades = _ref6.fades;
+  for (var _i = 0; _i < 15; _i++) {
+    particles.push(new Particle({
+      position: {
+        x: object.position.x + object.width / 2,
+        y: object.position.y + object.height / 2
+      },
+      velocity: {
+        x: (Math.random() - 0.5) * 2,
+        y: (Math.random() - 0.5) * 2
+      },
+      radius: Math.random() * 3,
+      color: color || '#BAA0DE',
+      fades: fades
+    }));
   }
 }
-
 // Animation Loop
 function animate() {
+  if (!game.active) return;
   requestAnimationFrame(animate);
-  c.clearRect(0, 0, canvas.width, canvas.height);
-  player.draw();
-  //c.fillText('HTML CANVAS BOILERPLATE', mouse.x, mouse.y)
-  objects.forEach(function (object) {
-    object.update();
+  c.fillStyle = 'black';
+  c.fillRect(0, 0, canvas.width, canvas.height);
+  player.update();
+  particles.forEach(function (particle, i) {
+    if (particle.position.y - particle.radius >= canvas.height) {
+      particle.position.x = Math.random() * canvas.width;
+      particle.position.y = -particle.radius;
+    }
+    if (particle.opacity <= 0) {
+      setTimeout(function () {
+        particles.splice(i, 1);
+      }, 0);
+    } else particle.update();
   });
+  invaderProjectiles.forEach(function (invaderProjectile, index) {
+    if (invaderProjectile.position.y + invaderProjectile.height >= canvas.height) {
+      setTimeout(function () {
+        invaderProjectiles.splice(index, 1);
+      }, 0);
+    } else invaderProjectile.update();
+
+    // projectile hits player
+    if (invaderProjectile.position.y + invaderProjectile.height >= player.position.y && invaderProjectile.position.x + invaderProjectile.width >= player.position.x && invaderProjectile.position.x <= player.position.x + player.width) {
+      console.log('you lose');
+      setTimeout(function () {
+        invaderProjectiles.splice(index, 1);
+        player.opacity = 0;
+        game.over = true;
+      }, 0);
+      setTimeout(function () {
+        game.active = false;
+      }, 2000);
+      createParticles({
+        object: player,
+        color: 'white',
+        fades: true
+      });
+    }
+  });
+  projectiles.forEach(function (projectile, index) {
+    if (projectile.position.y + projectile.radius <= 0) {
+      setTimeout(function () {
+        projectiles.splice(index, 1);
+      }, 0);
+    } else {
+      projectile.update();
+    }
+  });
+  grids.forEach(function (grid, gridIndex) {
+    grid.update();
+
+    // spawn projectiles
+    if (frames % 100 === 0 && grid.invaders.length > 0) {
+      grid.invaders[Math.floor(Math.random() * grid.invaders.length)].shoot(invaderProjectiles);
+    }
+    grid.invaders.forEach(function (invader, i) {
+      invader.update({
+        velocity: grid.velocity
+      });
+
+      // projectiles hit enemy
+      projectiles.forEach(function (projectile, j) {
+        if (projectile.position.y - projectile.radius <= invader.position.y + invader.height && projectile.position.x + projectile.radius >= invader.position.x && projectile.position.x - projectile.radius <= invader.position.x + invader.width && projectile.position.y + projectile.radius >= invader.position.y) {
+          setTimeout(function () {
+            var invaderFound = grid.invaders.find(function (invader2) {
+              return invader2 === invader;
+            });
+            var projectileFound = projectiles.find(function (projectile2) {
+              return projectile2 === projectile;
+            });
+
+            // remove invader and projectile
+            if (invaderFound && projectileFound) {
+              score += 100;
+              scoreEl.innerHTML = score;
+              createParticles({
+                object: invader,
+                fades: true
+              });
+              grid.invaders.splice(i, 1);
+              projectiles.splice(j, 1);
+              if (grid.invaders.length > 0) {
+                var firstInvader = grid.invaders[0];
+                var lastInvader = grid.invaders[grid.invaders.length - 1];
+                grid.width = lastInvader.position.x - firstInvader.position.x + lastInvader.width;
+                grid.position.x = firstInvader.position.x;
+              } else {
+                grids.splice(gridIndex, 1);
+              }
+            }
+          }, 0);
+        }
+      });
+    });
+  });
+  if (keys.a.pressed && player.position.x >= 0) {
+    player.velocity.x = -7;
+    player.rotation = -0.15;
+  } else if (keys.d.pressed && player.position.x + player.width <= canvas.width) {
+    player.velocity.x = 7;
+    player.rotation = 0.15;
+  } else {
+    player.velocity.x = 0;
+    player.rotation = 0;
+  }
+
+  // spawning enemies
+  if (frames % randomInterval === 0) {
+    grids.push(new Grid());
+    randomInterval = Math.floor(Math.random() * 500 + 500);
+    frames = 0;
+  }
+  frames++;
 }
-init();
 animate();
+addEventListener('keydown', function (_ref7) {
+  var key = _ref7.key;
+  if (game.over) return;
+  switch (key) {
+    case 'a':
+    case 'ArrowLeft':
+      keys.a.pressed = true;
+      break;
+    case 'd':
+    case 'ArrowRight':
+      keys.d.pressed = true;
+      break;
+    case ' ':
+      keys.space.pressed = true;
+      projectiles.push(new Projectile({
+        position: {
+          x: player.position.x + player.width / 2,
+          y: player.position.y
+        },
+        velocity: {
+          x: 0,
+          y: -5
+        }
+      }));
+      break;
+  }
+  console.log(key);
+});
+addEventListener('keyup', function (_ref8) {
+  var key = _ref8.key;
+  switch (key) {
+    case 'a':
+    case 'ArrowLeft':
+      keys.a.pressed = false;
+      break;
+    case 'd':
+    case 'ArrowRight':
+      keys.d.pressed = false;
+      break;
+    case ' ':
+      keys.space.pressed = false;
+      break;
+  }
+  console.log(key);
+});
 })();
 
 /******/ })()
