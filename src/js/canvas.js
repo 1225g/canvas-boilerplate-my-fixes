@@ -3,25 +3,15 @@ import { randomIntFromRange, randomColor, distance } from './utils'
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 
+const scoreEl = document.querySelector('#scoreEl')
+
 canvas.width = innerWidth
 canvas.height = innerHeight
-
-const mouse = {
-  x: innerWidth / 2,
-  y: innerHeight / 2
-}
-
-// Event Listeners
-addEventListener('mousemove', (event) => {
-  mouse.x = event.clientX
-  mouse.y = event.clientY
-})
 
 addEventListener('resize', () => {
   canvas.width = innerWidth
   canvas.height = innerHeight
 
-  init()
 })
 
 class Boundary {
@@ -63,7 +53,23 @@ class Player {
   }
 }
 
+class Pellet {
+  constructor({position}) {
+    this.position = position
+    this.radius = 3
+  }
 
+  draw() {
+    c.beginPath()
+    c.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2)
+    c.fillStyle = 'white'
+    c.fill()
+    c.closePath()
+  }
+
+}
+
+const pellets = []
 const boundaries = []
 const player = new Player({
   position: {
@@ -93,17 +99,44 @@ const keys = {
 let lastKey = ''
 
 const map = [
-  ['-','-','-','-','-','-','-'],
-  ['-',' ',' ',' ',' ',' ','-'],
-  ['-',' ','-',' ','-',' ','-'],
-  ['-',' ',' ',' ',' ',' ','-'],
-  ['-',' ','-',' ','-',' ','-'],
-  ['-',' ',' ',' ',' ',' ','-'],
-  ['-','-','-','-','-','-','-'],
+  ['1', '-', '-', '-', '-', '-', '-', '-', '-', '-', '2'],
+  ['|', '.', '.', '.', '.', '.', '.', '.', '.', '.', '|'],
+  ['|', '.', 'b', '.', '[', '7', ']', '.', 'b', '.', '|'],
+  ['|', '.', '.', '.', '.', '_', '.', '.', '.', '.', '|'],
+  ['|', '.', '[', ']', '.', '.', '.', '[', ']', '.', '|'],
+  ['|', '.', '.', '.', '.', '^', '.', '.', '.', '.', '|'],
+  ['|', '.', 'b', '.', '[', '+', ']', '.', 'b', '.', '|'],
+  ['|', '.', '.', '.', '.', '_', '.', '.', '.', '.', '|'],
+  ['|', '.', '[', ']', '.', '.', '.', '[', ']', '.', '|'],
+  ['|', '.', '.', '.', '.', '^', '.', '.', '.', '.', '|'],
+  ['|', '.', 'b', '.', '[', '5', ']', '.', 'b', '.', '|'],
+  ['|', '.', '.', '.', '.', '.', '.', '.', '.', 'p', '|'],
+  ['4', '-', '-', '-', '-', '-', '-', '-', '-', '-', '3']
 ]
 
-const image = new Image()
-image.src = '../img/pipeHorizontal.png'
+import pipeHorizontal from '../img/pipeHorizontal.png'
+import pipeVertical from '../img/pipeVertical.png'
+import pipeCorner1 from '../img/pipeCorner1.png'
+import pipeCorner2 from '../img/pipeCorner2.png'
+import pipeCorner3 from '../img/pipeCorner3.png'
+import pipeCorner4 from '../img/pipeCorner4.png'
+import block from '../img/block.png'
+import capLeft from '../img/capLeft.png'
+import capRight from '../img/capRight.png'
+import capBottom from '../img/capBottom.png'
+import capTop from '../img/capTop.png'
+import pipeCross from '../img/pipeCross.png'
+import pipeConnectorTop from '../img/pipeConnectorTop.png'
+import pipeConnectorRight from '../img/pipeConnectorRight.png'
+import pipeConnectorBottom from '../img/pipeConnectorBottom.png'
+import pipeConnectorLeft from '../img/pipeConnectorLeft.png'
+
+function createImage(src)
+{
+  const image = new Image()
+  image.src = src
+  return image
+}
 
 map.forEach((row, i) => {
   row.forEach((symbol, j) => {
@@ -114,10 +147,175 @@ map.forEach((row, i) => {
             x: Boundary.width * j,
             y: Boundary.height * i
           },
-          image: image
+          image: createImage(pipeHorizontal)
         }))
         break;
-
+      case '|':
+          boundaries.push(new Boundary({
+            position: {
+              x: Boundary.width * j,
+              y: Boundary.height * i
+            },
+            image: createImage(pipeVertical)
+          }))
+          break;
+      case '1':
+          boundaries.push(new Boundary({
+            position: {
+              x: Boundary.width * j,
+              y: Boundary.height * i
+            },
+            image: createImage(pipeCorner1)
+          }))
+          break;
+      case '2':
+          boundaries.push(new Boundary({
+            position: {
+              x: Boundary.width * j,
+              y: Boundary.height * i
+            },
+            image: createImage(pipeCorner2)
+          }))
+          break;
+      case '3':
+          boundaries.push(new Boundary({
+            position: {
+              x: Boundary.width * j,
+              y: Boundary.height * i
+            },
+            image: createImage(pipeCorner3)
+          }))
+          break;
+      case '4':
+          boundaries.push(new Boundary({
+            position: {
+              x: Boundary.width * j,
+              y: Boundary.height * i
+            },
+            image: createImage(pipeCorner4)
+          }))
+          break;
+      case 'b':
+        boundaries.push(new Boundary({
+          position: {
+            x: Boundary.width * j,
+            y: Boundary.height * i
+          },
+          image: createImage(block)
+        }))
+        break;
+      case '[':
+        boundaries.push(
+          new Boundary({
+            position: {
+              x: j * Boundary.width,
+              y: i * Boundary.height
+            },
+            image: createImage(capLeft)
+          })
+        )
+        break
+      case ']':
+        boundaries.push(
+          new Boundary({
+            position: {
+              x: j * Boundary.width,
+              y: i * Boundary.height
+            },
+            image: createImage(capRight)
+          })
+        )
+        break
+      case '_':
+        boundaries.push(
+          new Boundary({
+            position: {
+              x: j * Boundary.width,
+              y: i * Boundary.height
+            },
+            image: createImage(capBottom)
+          })
+        )
+        break
+      case '^':
+        boundaries.push(
+          new Boundary({
+            position: {
+              x: j * Boundary.width,
+              y: i * Boundary.height
+            },
+            image: createImage(capTop)
+          })
+        )
+        break
+      case '+':
+        boundaries.push(
+          new Boundary({
+            position: {
+              x: j * Boundary.width,
+              y: i * Boundary.height
+            },
+            image: createImage(pipeCross)
+          })
+        )
+        break
+      case '5':
+        boundaries.push(
+          new Boundary({
+            position: {
+              x: j * Boundary.width,
+              y: i * Boundary.height
+            },
+            color: 'blue',
+            image: createImage(pipeConnectorTop)
+          })
+        )
+        break
+      case '6':
+        boundaries.push(
+          new Boundary({
+            position: {
+              x: j * Boundary.width,
+              y: i * Boundary.height
+            },
+            color: 'blue',
+            image: createImage(pipeConnectorRight)
+          })
+        )
+        break
+      case '7':
+        boundaries.push(
+          new Boundary({
+            position: {
+              x: j * Boundary.width,
+              y: i * Boundary.height
+            },
+            color: 'blue',
+            image: createImage(pipeConnectorBottom)
+          })
+        )
+        break
+      case '8':
+        boundaries.push(
+          new Boundary({
+            position: {
+              x: j * Boundary.width,
+              y: i * Boundary.height
+            },
+            image: createImage(pipeConnectorLeft)
+          })
+        )
+        break
+      case '.':
+        pellets.push(
+          new Pellet({
+            position: {
+              x: j * Boundary.width + Boundary.width / 2,
+              y: i * Boundary.height + Boundary.height / 2
+            }
+          })
+        )
+        break
     }
   })
 })
@@ -189,6 +387,17 @@ function animate() {
     }
   }
 
+  for (let i = pellets.length - 1; 0 < i; i--){
+    const pellet = pellets[i]
+
+    pellet.draw()
+
+    if (Math.hypot(pellet.position.x - player.position.x, pellet.position.y - player.position.y) < pellet.radius + player.radius) {
+      
+      pellets.splice(i, 1)
+    }
+  }
+
   boundaries.forEach((boundary) => {
     boundary.draw()
 
@@ -199,10 +408,6 @@ function animate() {
   })
 
   player.update()
- 
-
-
-
 }
 
 animate()
