@@ -166,7 +166,8 @@ function init() {
 // Animation Loop
 function animate() {
   requestAnimationFrame(animate);
-  c.clearRect(0, 0, canvas.width, canvas.height);
+  c.fillStyle = 'white';
+  c.fillRect(0, 0, canvas.width, canvas.height);
   c.fillText('HTML CANVAS BOILERPLATE', mouse.x, mouse.y);
   objects.forEach(function (object) {
     object.update();
