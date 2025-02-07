@@ -1,6 +1,19 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/data/battleZones.js":
+/*!*********************************!*\
+  !*** ./src/data/battleZones.js ***!
+  \*********************************/
+/***/ ((module) => {
+
+var battleZonesData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1025, 1025, 1025, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1025, 1025, 1025, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1025, 1025, 1025, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1025, 1025, 1025, 1025, 1025, 1025, 1025, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1025, 1025, 1025, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1025, 1025, 1025, 1025, 1025, 1025, 1025, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+module.exports = {
+  battleZonesData: battleZonesData
+};
+
+/***/ }),
+
 /***/ "./src/data/collisions.js":
 /*!********************************!*\
   !*** ./src/data/collisions.js ***!
@@ -51,6 +64,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__webpack_require__.p + "5e6224e415ceacb34082d513f99594d8.png");
+
+/***/ }),
+
+/***/ "./src/img/battleBackground.png":
+/*!**************************************!*\
+  !*** ./src/img/battleBackground.png ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__webpack_require__.p + "80b51c219ab89fdec3427c1d336b4885.png");
 
 /***/ }),
 
@@ -244,12 +272,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_utils_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _data_collisions_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../data/collisions.js */ "./src/data/collisions.js");
 /* harmony import */ var _data_collisions_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_data_collisions_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _img_Pellet_Town_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../img/Pellet Town.png */ "./src/img/Pellet Town.png");
-/* harmony import */ var _img_playerDown_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../img/playerDown.png */ "./src/img/playerDown.png");
-/* harmony import */ var _img_playerLeft_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../img/playerLeft.png */ "./src/img/playerLeft.png");
-/* harmony import */ var _img_playerRight_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../img/playerRight.png */ "./src/img/playerRight.png");
-/* harmony import */ var _img_playerUp_png__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../img/playerUp.png */ "./src/img/playerUp.png");
-/* harmony import */ var _img_foregroundObjects_png__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../img/foregroundObjects.png */ "./src/img/foregroundObjects.png");
+/* harmony import */ var _data_battleZones_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../data/battleZones.js */ "./src/data/battleZones.js");
+/* harmony import */ var _data_battleZones_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_data_battleZones_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _img_Pellet_Town_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../img/Pellet Town.png */ "./src/img/Pellet Town.png");
+/* harmony import */ var _img_playerDown_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../img/playerDown.png */ "./src/img/playerDown.png");
+/* harmony import */ var _img_playerLeft_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../img/playerLeft.png */ "./src/img/playerLeft.png");
+/* harmony import */ var _img_playerRight_png__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../img/playerRight.png */ "./src/img/playerRight.png");
+/* harmony import */ var _img_playerUp_png__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../img/playerUp.png */ "./src/img/playerUp.png");
+/* harmony import */ var _img_foregroundObjects_png__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../img/foregroundObjects.png */ "./src/img/foregroundObjects.png");
+/* harmony import */ var _img_battleBackground_png__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../img/battleBackground.png */ "./src/img/battleBackground.png");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -264,13 +295,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
+
 var canvas = document.querySelector('canvas');
 var c = canvas.getContext('2d');
-canvas.width = innerWidth;
-canvas.height = innerHeight;
+gsap.to('#overlappingDiv', {
+  opacity: 0
+});
+canvas.width = 1024; // innerWidth
+canvas.height = 576; // innerHeight
+
 var collisionsMap = [];
 for (var i = 0; i < _data_collisions_js__WEBPACK_IMPORTED_MODULE_1__.collisions.length; i += 70) {
   collisionsMap.push(_data_collisions_js__WEBPACK_IMPORTED_MODULE_1__.collisions.slice(i, 70 + i));
+}
+var battleZonesMap = [];
+for (var _i = 0; _i < _data_battleZones_js__WEBPACK_IMPORTED_MODULE_2__.battleZonesData.length; _i += 70) {
+  battleZonesMap.push(_data_battleZones_js__WEBPACK_IMPORTED_MODULE_2__.battleZonesData.slice(_i, 70 + _i));
 }
 var Boundary = /*#__PURE__*/function () {
   function Boundary(_ref) {
@@ -283,7 +324,7 @@ var Boundary = /*#__PURE__*/function () {
   _createClass(Boundary, [{
     key: "draw",
     value: function draw() {
-      c.fillStyle = 'rgba(255,0,0,0)';
+      c.fillStyle = 'rgba(255,0,0,1)';
       c.fillRect(this.position.x, this.position.y, this.width, this.height);
     }
   }]);
@@ -293,8 +334,8 @@ _defineProperty(Boundary, "width", 48);
 _defineProperty(Boundary, "height", 48);
 var boundaries = [];
 var offset = {
-  x: -480,
-  y: -520
+  x: -735,
+  y: -620
 };
 collisionsMap.forEach(function (row, i) {
   row.forEach(function (symbol, j) {
@@ -306,16 +347,35 @@ collisionsMap.forEach(function (row, i) {
     }));
   });
 });
-var image = new Image();
-image.src = _img_Pellet_Town_png__WEBPACK_IMPORTED_MODULE_2__["default"];
-var foregroundImage = new Image();
-foregroundImage.src = _img_foregroundObjects_png__WEBPACK_IMPORTED_MODULE_7__["default"];
-var playerImage = new Image();
-playerImage.src = _img_playerDown_png__WEBPACK_IMPORTED_MODULE_3__["default"];
-addEventListener('resize', function () {
-  canvas.width = innerWidth;
-  canvas.height = innerHeight;
+var battleZones = [];
+battleZonesMap.forEach(function (row, i) {
+  row.forEach(function (symbol, j) {
+    if (symbol === 1025) battleZones.push(new Boundary({
+      position: {
+        x: j * Boundary.width + offset.x,
+        y: i * Boundary.height + offset.y
+      }
+    }));
+  });
 });
+var image = new Image();
+image.src = _img_Pellet_Town_png__WEBPACK_IMPORTED_MODULE_3__["default"];
+var foregroundImage = new Image();
+foregroundImage.src = _img_foregroundObjects_png__WEBPACK_IMPORTED_MODULE_8__["default"];
+var playerDownImage = new Image();
+playerDownImage.src = _img_playerDown_png__WEBPACK_IMPORTED_MODULE_4__["default"];
+var playerUpImage = new Image();
+playerUpImage.src = _img_playerUp_png__WEBPACK_IMPORTED_MODULE_7__["default"];
+var playerLeftImage = new Image();
+playerLeftImage.src = _img_playerLeft_png__WEBPACK_IMPORTED_MODULE_5__["default"];
+var playerRightImage = new Image();
+playerRightImage.src = _img_playerRight_png__WEBPACK_IMPORTED_MODULE_6__["default"];
+
+// addEventListener('resize', () => {
+//   canvas.width = innerWidth
+//   canvas.height = innerHeight
+
+// })
 
 // Objects
 var Player = /*#__PURE__*/function () {
@@ -352,7 +412,8 @@ var Sprite = /*#__PURE__*/function () {
       _ref2$frames = _ref2.frames,
       frames = _ref2$frames === void 0 ? {
         max: 1
-      } : _ref2$frames;
+      } : _ref2$frames,
+      sprites = _ref2.sprites;
     _classCallCheck(this, Sprite);
     this.position = position;
     this.image = image;
@@ -365,6 +426,7 @@ var Sprite = /*#__PURE__*/function () {
       _this.height = _this.image.height;
     };
     this.moving = false;
+    this.sprites = sprites;
   }
   _createClass(Sprite, [{
     key: "draw",
@@ -386,9 +448,15 @@ var player = new Sprite({
     x: canvas.width / 2 - 192 / 4 / 2,
     y: canvas.height / 2 - 68 / 2
   },
-  image: playerImage,
+  image: playerDownImage,
   frames: {
     max: 4
+  },
+  sprites: {
+    up: playerUpImage,
+    left: playerLeftImage,
+    right: playerRightImage,
+    down: playerDownImage
   }
 });
 var background = new Sprite({
@@ -419,31 +487,75 @@ var keys = {
     pressed: false
   }
 };
-var movables = [background].concat(boundaries, [foreground]);
+var movables = [background].concat(boundaries, [foreground], battleZones);
 function rectangularCollision(_ref3) {
   var rectangle1 = _ref3.rectangle1,
     rectangle2 = _ref3.rectangle2;
   return rectangle1.position.x + rectangle1.width >= rectangle2.position.x && rectangle1.position.x <= rectangle2.position.x + rectangle2.width && rectangle1.position.y + rectangle1.height >= rectangle2.position.y && rectangle1.position.y <= rectangle2.position.y + rectangle2.height;
 }
+var battle = {
+  initiated: false
+};
 
 // Animation Loop
 function animate() {
-  requestAnimationFrame(animate);
-  //c.fillStyle = 'white'
-  //c.fillRect(0, 0, canvas.width, canvas.height)
-
+  var animationId = requestAnimationFrame(animate);
   background.draw();
   boundaries.forEach(function (boundary) {
     boundary.draw();
+  });
+  battleZones.forEach(function (battleZone) {
+    battleZone.draw();
   });
   player.draw();
   foreground.draw();
   var moving = true;
   player.moving = false;
+  if (battle.initiated) return;
+
+  // activate a battle
+  if (keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed) {
+    for (var _i2 = 0; _i2 < battleZones.length; _i2++) {
+      var battleZone = battleZones[_i2];
+      var overlappingArea = (Math.min(player.position.x + player.width, battleZone.position.x + battleZone.width) - Math.max(player.position.x, battleZone.position.x)) * (Math.min(player.position.y + player.height, battleZone.position.y + battleZone.height) - Math.max(player.position.y, battleZone.position.y));
+      if (rectangularCollision({
+        rectangle1: player,
+        rectangle2: battleZone
+      }) && overlappingArea > player.width * player.height / 2 && Math.random() < 0.01) {
+        console.log('activate battle');
+
+        // deactive current animation loop
+        cancelAnimationFrame(animationId);
+        battle.initiated = true;
+        gsap.to('#overlappingDiv', {
+          opacity: 1,
+          repeat: 3,
+          yoyo: true,
+          duration: 0.4,
+          onComplete: function onComplete() {
+            gsap.to('#overlappingDiv', {
+              opacity: 1,
+              duration: 0.4,
+              onComplete: function onComplete() {
+                // activate a new animation loop
+                animateBattle();
+                gsap.to('#overlappingDiv', {
+                  opacity: 0,
+                  duration: 0.4
+                });
+              }
+            });
+          }
+        });
+        break;
+      }
+    }
+  }
   if (keys.w.pressed) {
     player.moving = true;
-    for (var _i = 0; _i < boundaries.length; _i++) {
-      var boundary = boundaries[_i];
+    player.image = player.sprites.up;
+    for (var _i3 = 0; _i3 < boundaries.length; _i3++) {
+      var boundary = boundaries[_i3];
       if (rectangularCollision({
         rectangle1: player,
         rectangle2: _objectSpread({}, boundary, {
@@ -453,7 +565,6 @@ function animate() {
           }
         })
       })) {
-        console.log('collide');
         moving = false;
         break;
       }
@@ -466,8 +577,9 @@ function animate() {
   }
   if (keys.a.pressed) {
     player.moving = true;
-    for (var _i2 = 0; _i2 < boundaries.length; _i2++) {
-      var _boundary = boundaries[_i2];
+    player.image = player.sprites.left;
+    for (var _i4 = 0; _i4 < boundaries.length; _i4++) {
+      var _boundary = boundaries[_i4];
       if (rectangularCollision({
         rectangle1: player,
         rectangle2: _objectSpread({}, _boundary, {
@@ -477,7 +589,6 @@ function animate() {
           }
         })
       })) {
-        console.log('collide');
         moving = false;
         break;
       }
@@ -490,8 +601,9 @@ function animate() {
   }
   if (keys.s.pressed) {
     player.moving = true;
-    for (var _i3 = 0; _i3 < boundaries.length; _i3++) {
-      var _boundary2 = boundaries[_i3];
+    player.image = player.sprites.down;
+    for (var _i5 = 0; _i5 < boundaries.length; _i5++) {
+      var _boundary2 = boundaries[_i5];
       if (rectangularCollision({
         rectangle1: player,
         rectangle2: _objectSpread({}, _boundary2, {
@@ -501,7 +613,6 @@ function animate() {
           }
         })
       })) {
-        console.log('collide');
         moving = false;
         break;
       }
@@ -514,8 +625,9 @@ function animate() {
   }
   if (keys.d.pressed) {
     player.moving = true;
-    for (var _i4 = 0; _i4 < boundaries.length; _i4++) {
-      var _boundary3 = boundaries[_i4];
+    player.image = player.sprites.right;
+    for (var _i6 = 0; _i6 < boundaries.length; _i6++) {
+      var _boundary3 = boundaries[_i6];
       if (rectangularCollision({
         rectangle1: player,
         rectangle2: _objectSpread({}, _boundary3, {
@@ -525,7 +637,6 @@ function animate() {
           }
         })
       })) {
-        console.log('collide');
         moving = false;
         break;
       }
@@ -537,7 +648,23 @@ function animate() {
     }
   }
 }
-animate();
+
+//animate()
+
+var battleBackgroundImage = new Image();
+battleBackgroundImage.src = _img_battleBackground_png__WEBPACK_IMPORTED_MODULE_9__["default"];
+var battleBackground = new Sprite({
+  position: {
+    x: 0,
+    y: 0
+  },
+  image: battleBackgroundImage
+});
+function animateBattle() {
+  requestAnimationFrame(animateBattle);
+  battleBackground.draw();
+}
+animateBattle();
 var lastKey = '';
 addEventListener('keydown', function (e) {
   switch (e.key) {
