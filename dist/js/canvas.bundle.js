@@ -1,6 +1,30 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/data/attacks.js":
+/*!*****************************!*\
+  !*** ./src/data/attacks.js ***!
+  \*****************************/
+/***/ ((module) => {
+
+var attacks = {
+  Tackle: {
+    name: 'Tackle',
+    damage: 10,
+    type: 'Normal'
+  },
+  Fireball: {
+    name: 'Fireball',
+    damage: 25,
+    type: 'Fire'
+  }
+};
+module.exports = {
+  attacks: attacks
+};
+
+/***/ }),
+
 /***/ "./src/data/battleZones.js":
 /*!*********************************!*\
   !*** ./src/data/battleZones.js ***!
@@ -109,6 +133,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__webpack_require__.p + "8a945b4f8a793dfe42b88aea4726b9ac.png");
+
+/***/ }),
+
+/***/ "./src/img/fireball.png":
+/*!******************************!*\
+  !*** ./src/img/fireball.png ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__webpack_require__.p + "82f6433b68e24bda4c9ee1f67c1fa6a3.png");
 
 /***/ }),
 
@@ -304,21 +343,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _data_collisions_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_data_collisions_js__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _data_battleZones_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../data/battleZones.js */ "./src/data/battleZones.js");
 /* harmony import */ var _data_battleZones_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_data_battleZones_js__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _img_Pellet_Town_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../img/Pellet Town.png */ "./src/img/Pellet Town.png");
-/* harmony import */ var _img_playerDown_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../img/playerDown.png */ "./src/img/playerDown.png");
-/* harmony import */ var _img_playerLeft_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../img/playerLeft.png */ "./src/img/playerLeft.png");
-/* harmony import */ var _img_playerRight_png__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../img/playerRight.png */ "./src/img/playerRight.png");
-/* harmony import */ var _img_playerUp_png__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../img/playerUp.png */ "./src/img/playerUp.png");
-/* harmony import */ var _img_foregroundObjects_png__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../img/foregroundObjects.png */ "./src/img/foregroundObjects.png");
-/* harmony import */ var _img_battleBackground_png__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../img/battleBackground.png */ "./src/img/battleBackground.png");
-/* harmony import */ var _img_draggleSprite_png__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../img/draggleSprite.png */ "./src/img/draggleSprite.png");
-/* harmony import */ var _img_embySprite_png__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../img/embySprite.png */ "./src/img/embySprite.png");
+/* harmony import */ var _data_attacks_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../data/attacks.js */ "./src/data/attacks.js");
+/* harmony import */ var _data_attacks_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_data_attacks_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _img_Pellet_Town_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../img/Pellet Town.png */ "./src/img/Pellet Town.png");
+/* harmony import */ var _img_playerDown_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../img/playerDown.png */ "./src/img/playerDown.png");
+/* harmony import */ var _img_playerLeft_png__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../img/playerLeft.png */ "./src/img/playerLeft.png");
+/* harmony import */ var _img_playerRight_png__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../img/playerRight.png */ "./src/img/playerRight.png");
+/* harmony import */ var _img_playerUp_png__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../img/playerUp.png */ "./src/img/playerUp.png");
+/* harmony import */ var _img_foregroundObjects_png__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../img/foregroundObjects.png */ "./src/img/foregroundObjects.png");
+/* harmony import */ var _img_battleBackground_png__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../img/battleBackground.png */ "./src/img/battleBackground.png");
+/* harmony import */ var _img_draggleSprite_png__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../img/draggleSprite.png */ "./src/img/draggleSprite.png");
+/* harmony import */ var _img_embySprite_png__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../img/embySprite.png */ "./src/img/embySprite.png");
+/* harmony import */ var _img_fireball_png__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../img/fireball.png */ "./src/img/fireball.png");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 
 
@@ -393,17 +437,17 @@ battleZonesMap.forEach(function (row, i) {
   });
 });
 var image = new Image();
-image.src = _img_Pellet_Town_png__WEBPACK_IMPORTED_MODULE_3__["default"];
+image.src = _img_Pellet_Town_png__WEBPACK_IMPORTED_MODULE_4__["default"];
 var foregroundImage = new Image();
-foregroundImage.src = _img_foregroundObjects_png__WEBPACK_IMPORTED_MODULE_8__["default"];
+foregroundImage.src = _img_foregroundObjects_png__WEBPACK_IMPORTED_MODULE_9__["default"];
 var playerDownImage = new Image();
-playerDownImage.src = _img_playerDown_png__WEBPACK_IMPORTED_MODULE_4__["default"];
+playerDownImage.src = _img_playerDown_png__WEBPACK_IMPORTED_MODULE_5__["default"];
 var playerUpImage = new Image();
-playerUpImage.src = _img_playerUp_png__WEBPACK_IMPORTED_MODULE_7__["default"];
+playerUpImage.src = _img_playerUp_png__WEBPACK_IMPORTED_MODULE_8__["default"];
 var playerLeftImage = new Image();
-playerLeftImage.src = _img_playerLeft_png__WEBPACK_IMPORTED_MODULE_5__["default"];
+playerLeftImage.src = _img_playerLeft_png__WEBPACK_IMPORTED_MODULE_6__["default"];
 var playerRightImage = new Image();
-playerRightImage.src = _img_playerRight_png__WEBPACK_IMPORTED_MODULE_6__["default"];
+playerRightImage.src = _img_playerRight_png__WEBPACK_IMPORTED_MODULE_7__["default"];
 
 // addEventListener('resize', () => {
 //   canvas.width = innerWidth
@@ -452,7 +496,10 @@ var Sprite = /*#__PURE__*/function () {
       _ref2$animate = _ref2.animate,
       animate = _ref2$animate === void 0 ? false : _ref2$animate,
       _ref2$isEnemy = _ref2.isEnemy,
-      isEnemy = _ref2$isEnemy === void 0 ? false : _ref2$isEnemy;
+      isEnemy = _ref2$isEnemy === void 0 ? false : _ref2$isEnemy,
+      _ref2$rotation = _ref2.rotation,
+      rotation = _ref2$rotation === void 0 ? 0 : _ref2$rotation,
+      name = _ref2.name;
     _classCallCheck(this, Sprite);
     this.position = position;
     this.image = image;
@@ -469,11 +516,16 @@ var Sprite = /*#__PURE__*/function () {
     this.opacity = 1;
     this.health = 100;
     this.isEnemy = isEnemy;
+    this.rotation = rotation;
+    this.name = name;
   }
   _createClass(Sprite, [{
     key: "draw",
     value: function draw() {
       c.save();
+      c.translate(this.position.x + this.width / 2, this.position.y + this.height / 2);
+      c.rotate(this.rotation);
+      c.translate(-this.position.x - this.width / 2, -this.position.y - this.height / 2);
       c.globalAlpha = this.opacity;
       c.drawImage(this.image, this.frames.val * this.width, 0, this.image.width / this.frames.max, this.image.height, this.position.x, this.position.y, this.image.width / this.frames.max, this.image.height);
       c.restore();
@@ -490,39 +542,91 @@ var Sprite = /*#__PURE__*/function () {
     value: function attack(_ref3) {
       var _this2 = this;
       var _attack = _ref3.attack,
-        recipient = _ref3.recipient;
-      var tl = gsap.timeline();
-      this.health -= _attack.damage;
-      var movementDistance = 20;
-      if (this.isEnemy) movementDistance = -20;
+        recipient = _ref3.recipient,
+        renderedSprites = _ref3.renderedSprites;
+      document.querySelector('#dialogueBox').style.display = 'block';
+      document.querySelector('#dialogueBox').innerHTML = this.name + ' used ' + _attack.name;
       var healthBar = '#enemyHealthBar';
       if (this.isEnemy) healthBar = '#playerHealthBar';
-      tl.to(this.position, {
-        x: this.position.x - movementDistance
-      }).to(this.position, {
-        x: this.position.x + movementDistance * 2,
-        duration: 0.1,
-        onComplete: function onComplete() {
-          // Enemy actually gets hit
-          gsap.to(healthBar, {
-            width: _this2.health + '%'
+      var rotation = 1;
+      if (this.isEnemy) rotation = -2.2;
+      this.health -= _attack.damage;
+      switch (_attack.name) {
+        case 'Fireball':
+          var fireballImage = new Image();
+          fireballImage.src = _img_fireball_png__WEBPACK_IMPORTED_MODULE_13__["default"];
+          var fireball = new Sprite({
+            position: {
+              x: this.position.x,
+              y: this.position.y
+            },
+            image: fireballImage,
+            frames: {
+              max: 4,
+              hold: 10
+            },
+            animate: true,
+            rotation: rotation
           });
-          gsap.to(recipient.position, {
-            x: recipient.position.x + 10,
-            yoyo: true,
-            repeat: 5,
-            duration: 0.08
+          renderedSprites.splice(1, 0, fireball);
+          gsap.to(fireball.position, {
+            x: recipient.position.x,
+            y: recipient.position.y,
+            onComplete: function onComplete() {
+              // Enemy actually gets hit
+              gsap.to(healthBar, {
+                width: _this2.health + '%'
+              });
+              gsap.to(recipient.position, {
+                x: recipient.position.x + 10,
+                yoyo: true,
+                repeat: 5,
+                duration: 0.08
+              });
+              gsap.to(recipient, {
+                opacity: 0,
+                repeat: 5,
+                yoyo: true,
+                duration: 0.08
+              });
+              renderedSprites.splice(1, 1);
+            }
           });
-          gsap.to(recipient, {
-            opacity: 0,
-            repeat: 5,
-            yoyo: true,
-            duration: 0.08
+          break;
+        case 'Tackle':
+          var tl = gsap.timeline();
+          var movementDistance = 20;
+          if (this.isEnemy) movementDistance = -20;
+          tl.to(this.position, {
+            x: this.position.x - movementDistance
+          }).to(this.position, {
+            x: this.position.x + movementDistance * 2,
+            duration: 0.1,
+            onComplete: function onComplete() {
+              // Enemy actually gets hit
+              gsap.to(healthBar, {
+                width: _this2.health + '%'
+              });
+              gsap.to(recipient.position, {
+                x: recipient.position.x + 10,
+                yoyo: true,
+                repeat: 5,
+                duration: 0.08
+              });
+              gsap.to(recipient, {
+                opacity: 0,
+                repeat: 5,
+                yoyo: true,
+                duration: 0.08
+              });
+            }
+          }).to(this.position, {
+            x: this.position.x
           });
-        }
-      }).to(this.position, {
-        x: this.position.x
-      });
+          break;
+        default:
+          break;
+      }
     }
   }]);
   return Sprite;
@@ -734,7 +838,7 @@ function animate() {
   }
 }
 var battleBackgroundImage = new Image();
-battleBackgroundImage.src = _img_battleBackground_png__WEBPACK_IMPORTED_MODULE_9__["default"];
+battleBackgroundImage.src = _img_battleBackground_png__WEBPACK_IMPORTED_MODULE_10__["default"];
 var battleBackground = new Sprite({
   position: {
     x: 0,
@@ -743,7 +847,7 @@ var battleBackground = new Sprite({
   image: battleBackgroundImage
 });
 var draggleImage = new Image();
-draggleImage.src = _img_draggleSprite_png__WEBPACK_IMPORTED_MODULE_10__["default"];
+draggleImage.src = _img_draggleSprite_png__WEBPACK_IMPORTED_MODULE_11__["default"];
 var draggle = new Sprite({
   position: {
     x: 800,
@@ -755,10 +859,11 @@ var draggle = new Sprite({
     hold: 30
   },
   animate: true,
-  isEnemy: true
+  isEnemy: true,
+  name: 'Draggle'
 });
 var embyImage = new Image();
-embyImage.src = _img_embySprite_png__WEBPACK_IMPORTED_MODULE_11__["default"];
+embyImage.src = _img_embySprite_png__WEBPACK_IMPORTED_MODULE_12__["default"];
 var emby = new Sprite({
   position: {
     x: 280,
@@ -769,28 +874,34 @@ var emby = new Sprite({
     max: 4,
     hold: 30
   },
-  animate: true
+  animate: true,
+  name: 'Emby'
 });
+var renderedSprites = [draggle, emby];
 function animateBattle() {
   requestAnimationFrame(animateBattle);
   battleBackground.draw();
-  draggle.draw();
-  emby.draw();
+  renderedSprites.forEach(function (sprite) {
+    sprite.draw();
+  });
 }
 
 //animate()
 animateBattle();
+
+// our event listeners for our buttons (attack)
 document.querySelectorAll('button').forEach(function (button) {
-  button.addEventListener('click', function () {
+  button.addEventListener('click', function (e) {
+    var selectedAttack = _data_attacks_js__WEBPACK_IMPORTED_MODULE_3__.attacks[e.currentTarget.innerHTML];
     emby.attack({
-      attack: {
-        name: 'Tackle',
-        damage: 10,
-        type: 'Normal'
-      },
-      recipient: draggle
+      attack: selectedAttack,
+      recipient: draggle,
+      renderedSprites: renderedSprites
     });
   });
+});
+document.querySelector('#dialogueBox').addEventListener('click', function (e) {
+  e.currentTarget.style.display = 'none';
 });
 var lastKey = '';
 addEventListener('keydown', function (e) {
