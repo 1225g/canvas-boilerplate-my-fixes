@@ -82,6 +82,36 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/img/draggleSprite.png":
+/*!***********************************!*\
+  !*** ./src/img/draggleSprite.png ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__webpack_require__.p + "dcaef42f5394d52df250830c62aa901a.png");
+
+/***/ }),
+
+/***/ "./src/img/embySprite.png":
+/*!********************************!*\
+  !*** ./src/img/embySprite.png ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__webpack_require__.p + "8a945b4f8a793dfe42b88aea4726b9ac.png");
+
+/***/ }),
+
 /***/ "./src/img/foregroundObjects.png":
 /*!***************************************!*\
   !*** ./src/img/foregroundObjects.png ***!
@@ -281,12 +311,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _img_playerUp_png__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../img/playerUp.png */ "./src/img/playerUp.png");
 /* harmony import */ var _img_foregroundObjects_png__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../img/foregroundObjects.png */ "./src/img/foregroundObjects.png");
 /* harmony import */ var _img_battleBackground_png__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../img/battleBackground.png */ "./src/img/battleBackground.png");
+/* harmony import */ var _img_draggleSprite_png__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../img/draggleSprite.png */ "./src/img/draggleSprite.png");
+/* harmony import */ var _img_embySprite_png__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../img/embySprite.png */ "./src/img/embySprite.png");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 
 
@@ -411,9 +445,14 @@ var Sprite = /*#__PURE__*/function () {
       image = _ref2.image,
       _ref2$frames = _ref2.frames,
       frames = _ref2$frames === void 0 ? {
-        max: 1
+        max: 1,
+        hold: 10
       } : _ref2$frames,
-      sprites = _ref2.sprites;
+      sprites = _ref2.sprites,
+      _ref2$animate = _ref2.animate,
+      animate = _ref2$animate === void 0 ? false : _ref2$animate,
+      _ref2$isEnemy = _ref2.isEnemy,
+      isEnemy = _ref2$isEnemy === void 0 ? false : _ref2$isEnemy;
     _classCallCheck(this, Sprite);
     this.position = position;
     this.image = image;
@@ -425,20 +464,65 @@ var Sprite = /*#__PURE__*/function () {
       _this.width = _this.image.width / _this.frames.max;
       _this.height = _this.image.height;
     };
-    this.moving = false;
+    this.animate = animate;
     this.sprites = sprites;
+    this.opacity = 1;
+    this.health = 100;
+    this.isEnemy = isEnemy;
   }
   _createClass(Sprite, [{
     key: "draw",
     value: function draw() {
+      c.save();
+      c.globalAlpha = this.opacity;
       c.drawImage(this.image, this.frames.val * this.width, 0, this.image.width / this.frames.max, this.image.height, this.position.x, this.position.y, this.image.width / this.frames.max, this.image.height);
-      if (!this.moving) return;
+      c.restore();
+      if (!this.animate) return;
       if (this.frames.max > 1) {
         this.frames.elapsed++;
       }
-      if (this.frames.elapsed % 10 === 0) {
+      if (this.frames.elapsed % this.frames.hold === 0) {
         if (this.frames.val < this.frames.max - 1) this.frames.val++;else this.frames.val = 0;
       }
+    }
+  }, {
+    key: "attack",
+    value: function attack(_ref3) {
+      var _this2 = this;
+      var _attack = _ref3.attack,
+        recipient = _ref3.recipient;
+      var tl = gsap.timeline();
+      this.health -= _attack.damage;
+      var movementDistance = 20;
+      if (this.isEnemy) movementDistance = -20;
+      var healthBar = '#enemyHealthBar';
+      if (this.isEnemy) healthBar = '#playerHealthBar';
+      tl.to(this.position, {
+        x: this.position.x - movementDistance
+      }).to(this.position, {
+        x: this.position.x + movementDistance * 2,
+        duration: 0.1,
+        onComplete: function onComplete() {
+          // Enemy actually gets hit
+          gsap.to(healthBar, {
+            width: _this2.health + '%'
+          });
+          gsap.to(recipient.position, {
+            x: recipient.position.x + 10,
+            yoyo: true,
+            repeat: 5,
+            duration: 0.08
+          });
+          gsap.to(recipient, {
+            opacity: 0,
+            repeat: 5,
+            yoyo: true,
+            duration: 0.08
+          });
+        }
+      }).to(this.position, {
+        x: this.position.x
+      });
     }
   }]);
   return Sprite;
@@ -450,7 +534,8 @@ var player = new Sprite({
   },
   image: playerDownImage,
   frames: {
-    max: 4
+    max: 4,
+    hold: 10
   },
   sprites: {
     up: playerUpImage,
@@ -488,9 +573,9 @@ var keys = {
   }
 };
 var movables = [background].concat(boundaries, [foreground], battleZones);
-function rectangularCollision(_ref3) {
-  var rectangle1 = _ref3.rectangle1,
-    rectangle2 = _ref3.rectangle2;
+function rectangularCollision(_ref4) {
+  var rectangle1 = _ref4.rectangle1,
+    rectangle2 = _ref4.rectangle2;
   return rectangle1.position.x + rectangle1.width >= rectangle2.position.x && rectangle1.position.x <= rectangle2.position.x + rectangle2.width && rectangle1.position.y + rectangle1.height >= rectangle2.position.y && rectangle1.position.y <= rectangle2.position.y + rectangle2.height;
 }
 var battle = {
@@ -510,7 +595,7 @@ function animate() {
   player.draw();
   foreground.draw();
   var moving = true;
-  player.moving = false;
+  player.animate = false;
   if (battle.initiated) return;
 
   // activate a battle
@@ -552,7 +637,7 @@ function animate() {
     }
   }
   if (keys.w.pressed) {
-    player.moving = true;
+    player.animate = true;
     player.image = player.sprites.up;
     for (var _i3 = 0; _i3 < boundaries.length; _i3++) {
       var boundary = boundaries[_i3];
@@ -576,7 +661,7 @@ function animate() {
     }
   }
   if (keys.a.pressed) {
-    player.moving = true;
+    player.animate = true;
     player.image = player.sprites.left;
     for (var _i4 = 0; _i4 < boundaries.length; _i4++) {
       var _boundary = boundaries[_i4];
@@ -600,7 +685,7 @@ function animate() {
     }
   }
   if (keys.s.pressed) {
-    player.moving = true;
+    player.animate = true;
     player.image = player.sprites.down;
     for (var _i5 = 0; _i5 < boundaries.length; _i5++) {
       var _boundary2 = boundaries[_i5];
@@ -624,7 +709,7 @@ function animate() {
     }
   }
   if (keys.d.pressed) {
-    player.moving = true;
+    player.animate = true;
     player.image = player.sprites.right;
     for (var _i6 = 0; _i6 < boundaries.length; _i6++) {
       var _boundary3 = boundaries[_i6];
@@ -648,9 +733,6 @@ function animate() {
     }
   }
 }
-
-//animate()
-
 var battleBackgroundImage = new Image();
 battleBackgroundImage.src = _img_battleBackground_png__WEBPACK_IMPORTED_MODULE_9__["default"];
 var battleBackground = new Sprite({
@@ -660,11 +742,56 @@ var battleBackground = new Sprite({
   },
   image: battleBackgroundImage
 });
+var draggleImage = new Image();
+draggleImage.src = _img_draggleSprite_png__WEBPACK_IMPORTED_MODULE_10__["default"];
+var draggle = new Sprite({
+  position: {
+    x: 800,
+    y: 100
+  },
+  image: draggleImage,
+  frames: {
+    max: 4,
+    hold: 30
+  },
+  animate: true,
+  isEnemy: true
+});
+var embyImage = new Image();
+embyImage.src = _img_embySprite_png__WEBPACK_IMPORTED_MODULE_11__["default"];
+var emby = new Sprite({
+  position: {
+    x: 280,
+    y: 325
+  },
+  image: embyImage,
+  frames: {
+    max: 4,
+    hold: 30
+  },
+  animate: true
+});
 function animateBattle() {
   requestAnimationFrame(animateBattle);
   battleBackground.draw();
+  draggle.draw();
+  emby.draw();
 }
+
+//animate()
 animateBattle();
+document.querySelectorAll('button').forEach(function (button) {
+  button.addEventListener('click', function () {
+    emby.attack({
+      attack: {
+        name: 'Tackle',
+        damage: 10,
+        type: 'Normal'
+      },
+      recipient: draggle
+    });
+  });
+});
 var lastKey = '';
 addEventListener('keydown', function (e) {
   switch (e.key) {

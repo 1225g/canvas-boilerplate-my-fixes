@@ -10,6 +10,8 @@ import playerRightPng from '../img/playerRight.png'
 import playerUpPng from '../img/playerUp.png'
 import foregroundObjectsPng from '../img/foregroundObjects.png'
 import battleBackgroundPng from '../img/battleBackground.png'
+import draggleSpritePng from '../img/draggleSprite.png'
+import embySpritePng from '../img/embySprite.png'
 
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
@@ -124,7 +126,7 @@ class Player {
 }
 
 class Sprite {
-  constructor({position, velocity, image, frames = {max: 1}, sprites}) {
+  constructor({position, velocity, image, frames = {max: 1, hold: 10}, sprites, animate = false, isEnemy = false}) {
     this.position = position
     this.image = image
     this.frames = {...frames, val: 0, elapsed: 0}
@@ -132,10 +134,15 @@ class Sprite {
       this.width = this.image.width / this.frames.max
       this.height = this.image.height
     }
-    this.moving = false
+    this.animate = animate
     this.sprites = sprites
+    this.opacity = 1
+    this.health = 100
+    this.isEnemy = isEnemy
   }
   draw() {
+    c.save()
+    c.globalAlpha = this.opacity
     c.drawImage(this.image, 
       this.frames.val * this.width,
       0,
@@ -146,18 +153,60 @@ class Sprite {
       this.image.width / this.frames.max,
       this.image.height
     )
+    c.restore()
 
-    if (!this.moving) return
+    if (!this.animate) return
 
     if (this.frames.max > 1) {
       this.frames.elapsed ++
     }
-    if (this.frames.elapsed % 10 === 0) {
+    if (this.frames.elapsed % this.frames.hold === 0) {
       if (this.frames.val < this.frames.max -1 )
         this.frames.val ++
       else
         this.frames.val = 0
     }
+  }
+
+  attack({attack, recipient}) {
+    const tl = gsap.timeline()
+
+    this.health -= attack.damage
+
+    let movementDistance = 20
+    if (this.isEnemy) movementDistance = -20
+
+    let healthBar = '#enemyHealthBar'
+    if (this.isEnemy) healthBar = '#playerHealthBar'
+
+    tl.to(this.position, {
+      x: this.position.x - movementDistance
+    }).to(this.position, {
+      x: this.position.x + movementDistance * 2,
+      duration: 0.1,
+      onComplete: () => {
+        // Enemy actually gets hit
+        gsap.to(healthBar, {
+          width: this.health + '%'
+        })
+
+        gsap.to(recipient.position, {
+          x: recipient.position.x + 10,
+          yoyo: true,
+          repeat: 5,
+          duration: 0.08,
+        })
+
+        gsap.to(recipient, {
+          opacity: 0,
+          repeat: 5,
+          yoyo: true,
+          duration: 0.08
+        })
+      }
+    }).to(this.position, {
+      x: this.position.x
+    })
   }
 }
 
@@ -168,7 +217,8 @@ const player = new Sprite({
   },
   image: playerDownImage,
   frames: {
-    max: 4
+    max: 4,
+    hold: 10
   },
   sprites: {
     up: playerUpImage,
@@ -241,7 +291,7 @@ function animate() {
   foreground.draw()
     
   let moving = true
-  player.moving = false
+  player.animate = false
 
   if (battle.initiated) return
 
@@ -294,7 +344,7 @@ function animate() {
     
 
   if (keys.w.pressed) {
-    player.moving = true
+    player.animate = true
     player.image  = player.sprites.up
 
     for (let i = 0; i< boundaries.length; i++) {
@@ -319,7 +369,7 @@ function animate() {
     }
   }
   if (keys.a.pressed) {
-    player.moving = true
+    player.animate = true
     player.image  = player.sprites.left
 
     for (let i = 0; i< boundaries.length; i++) {
@@ -342,7 +392,7 @@ function animate() {
     })}
   }
   if (keys.s.pressed) {
-    player.moving = true
+    player.animate = true
     player.image  = player.sprites.down
 
     for (let i = 0; i< boundaries.length; i++) {
@@ -365,7 +415,7 @@ function animate() {
     })}
   }
   if (keys.d.pressed) {
-    player.moving = true
+    player.animate = true
     player.image  = player.sprites.right
 
     for (let i = 0; i< boundaries.length; i++) {
@@ -389,7 +439,7 @@ function animate() {
   }
 }
 
-//animate()
+
 
 const battleBackgroundImage = new Image()
 battleBackgroundImage.src = battleBackgroundPng
@@ -398,12 +448,61 @@ const battleBackground = new Sprite({position:{
   y: 0
 },
 image: battleBackgroundImage})
+
+const draggleImage = new Image()
+draggleImage.src = draggleSpritePng
+const draggle = new Sprite({
+  position: {
+    x: 800,
+    y: 100
+  },
+  image: draggleImage,
+  frames: {
+    max: 4,
+    hold: 30
+  },
+  animate: true,
+  isEnemy: true
+})
+
+const embyImage = new Image()
+embyImage.src = embySpritePng
+const emby = new Sprite({
+  position: {
+    x: 280,
+    y: 325
+  },
+  image: embyImage,
+  frames: {
+    max: 4,
+    hold: 30
+  },
+  animate: true
+})
+
+
 function animateBattle() {
   requestAnimationFrame(animateBattle)
   battleBackground.draw()
+  draggle.draw()
+  emby.draw()
 }
 
+//animate()
 animateBattle()
+
+document.querySelectorAll('button').forEach(button => {
+  button.addEventListener('click',()=>{
+    emby.attack({ attack: {
+      name: 'Tackle',
+      damage: 10,
+      type: 'Normal'
+    }, 
+    recipient: draggle
+  })
+  })
+})
+
 
 let lastKey = ''
 
