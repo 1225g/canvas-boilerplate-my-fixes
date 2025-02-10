@@ -1,5 +1,6 @@
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -43,6 +44,11 @@ module.exports = {
       filename: 'index.html',
       favicon: 'favicon.ico',
       template: 'src/index.html'
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'src/audio', to: 'audio' } // Copies src/audio to dist/audio
+      ]
     })
   ],
   watch: true,
