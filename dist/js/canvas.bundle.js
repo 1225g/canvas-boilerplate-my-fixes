@@ -104,76 +104,207 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ "./src/js/utils.js");
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_utils__WEBPACK_IMPORTED_MODULE_0__);
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
+function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
+function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 var canvas = document.querySelector('canvas');
 var c = canvas.getContext('2d');
-canvas.width = innerWidth;
-canvas.height = innerHeight;
-var mouse = {
-  x: innerWidth / 2,
-  y: innerHeight / 2
-};
-var colors = ['#2185C5', '#7ECEFD', '#FFF6E5', '#FF7F66'];
-
-// Event Listeners
-addEventListener('mousemove', function (event) {
-  mouse.x = event.clientX;
-  mouse.y = event.clientY;
-});
-addEventListener('resize', function () {
-  canvas.width = innerWidth;
-  canvas.height = innerHeight;
-  init();
-});
-
-// Objects
-var _Object = /*#__PURE__*/function () {
-  function Object(x, y, radius, color) {
-    _classCallCheck(this, Object);
-    this.x = x;
-    this.y = y;
-    this.radius = radius;
+canvas.width = 1024;
+canvas.height = 576;
+c.fillRect(0, 0, canvas.width, canvas.height);
+var gravity = 0.7;
+var Sprite = /*#__PURE__*/function () {
+  function Sprite(_ref) {
+    var position = _ref.position,
+      velocity = _ref.velocity,
+      _ref$color = _ref.color,
+      color = _ref$color === void 0 ? 'red' : _ref$color,
+      offset = _ref.offset;
+    _classCallCheck(this, Sprite);
+    this.position = position;
+    this.velocity = velocity;
+    this.width = 50;
+    this.height = 150;
+    this.lastKey;
+    this.attackBox = {
+      position: {
+        x: this.position.x,
+        y: this.position.y
+      },
+      offset: offset,
+      width: 100,
+      height: 50
+    };
     this.color = color;
+    this.isAttacking;
   }
-  _createClass(Object, [{
+  return _createClass(Sprite, [{
     key: "draw",
     value: function draw() {
-      c.beginPath();
-      c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
       c.fillStyle = this.color;
-      c.fill();
-      c.closePath();
+      c.fillRect(this.position.x, this.position.y, this.width, this.height);
+
+      // attack box
+      if (this.isAttacking) {
+        c.fillStyle = 'green';
+        c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height);
+      }
     }
   }, {
     key: "update",
     value: function update() {
       this.draw();
+      this.attackBox.position.x = this.position.x + this.attackBox.offset.x;
+      this.attackBox.position.y = this.position.y;
+      this.position.x += this.velocity.x;
+      this.position.y += this.velocity.y;
+      if (this.position.y + this.height + this.velocity.y >= canvas.height) this.velocity.y = 0;else this.velocity.y += gravity;
+    }
+  }, {
+    key: "attack",
+    value: function attack() {
+      var _this = this;
+      this.isAttacking = true;
+      setTimeout(function () {
+        _this.isAttacking = false;
+      }, 100);
     }
   }]);
-  return Object;
-}(); // Implementation
-var objects;
-function init() {
-  objects = [];
-  for (var i = 0; i < 400; i++) {
-    objects.push();
+}();
+var player = new Sprite({
+  position: {
+    x: 0,
+    y: 0
+  },
+  velocity: {
+    x: 0,
+    y: 10
+  },
+  offset: {
+    x: 0,
+    y: 0
   }
+});
+var enemy = new Sprite({
+  position: {
+    x: 400,
+    y: 100
+  },
+  velocity: {
+    x: 0,
+    y: 0
+  },
+  color: 'blue',
+  offset: {
+    x: -50,
+    y: 0
+  }
+});
+console.log(player);
+var keys = {
+  a: {
+    pressed: false
+  },
+  d: {
+    pressed: false
+  },
+  w: {
+    pressed: false
+  },
+  ArrowLeft: {
+    pressed: false
+  },
+  ArrowRight: {
+    pressed: false
+  }
+};
+function rectangularCollision(_ref2) {
+  var rectangle1 = _ref2.rectangle1,
+    rectangle2 = _ref2.rectangle2;
+  return rectangle1.attackBox.position.x + rectangle1.attackBox.width >= rectangle2.position.x && rectangle1.attackBox.position.x <= rectangle2.position.x + rectangle2.width && rectangle1.attackBox.position.y + rectangle1.attackBox.height >= rectangle2.position.y && rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height;
 }
-
-// Animation Loop
 function animate() {
   requestAnimationFrame(animate);
-  c.clearRect(0, 0, canvas.width, canvas.height);
-  c.fillText('HTML CANVAS BOILERPLATE', mouse.x, mouse.y);
-  objects.forEach(function (object) {
-    object.update();
-  });
+  c.fillStyle = 'black';
+  c.fillRect(0, 0, canvas.width, canvas.height);
+  player.update();
+  enemy.update();
+  player.velocity.x = 0;
+  enemy.velocity.x = 0;
+  if (keys.a.pressed && player.lastKey === 'a') player.velocity.x = -5;
+  if (keys.d.pressed && player.lastKey === 'd') player.velocity.x = 5;
+  if (keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') enemy.velocity.x = -5;
+  if (keys.ArrowRight.pressed && enemy.lastKey === 'ArrowRight') enemy.velocity.x = 5;
+
+  // detect for collision
+  if (rectangularCollision({
+    rectangle1: player,
+    rectangle2: enemy
+  }) && player.isAttacking) {
+    player.isAttacking = false;
+    console.log('go');
+  }
+  if (rectangularCollision({
+    rectangle1: enemy,
+    rectangle2: player
+  }) && enemy.isAttacking) {
+    enemy.isAttacking = false;
+    console.log('enemy attack successful');
+  }
 }
-init();
 animate();
+addEventListener('keydown', function (event) {
+  switch (event.key) {
+    case 'd':
+      keys.d.pressed = true;
+      player.lastKey = event.key;
+      break;
+    case 'a':
+      keys.a.pressed = true;
+      player.lastKey = event.key;
+      break;
+    case 'w':
+      player.velocity.y = -20;
+      break;
+    case ' ':
+      player.attack();
+      break;
+    case 'ArrowRight':
+      keys.ArrowRight.pressed = true;
+      enemy.lastKey = 'ArrowRight';
+      break;
+    case 'ArrowLeft':
+      keys.ArrowLeft.pressed = true;
+      enemy.lastKey = 'ArrowLeft';
+      break;
+    case 'ArrowUp':
+      enemy.velocity.y = -20;
+      break;
+    case 'ArrowDown':
+      enemy.attack();
+      break;
+  }
+});
+addEventListener('keyup', function (event) {
+  switch (event.key) {
+    case 'd':
+      keys.d.pressed = false;
+      break;
+    case 'a':
+      keys.a.pressed = false;
+      break;
+    case 'ArrowRight':
+      keys.ArrowRight.pressed = false;
+      break;
+    case 'ArrowLeft':
+      keys.ArrowLeft.pressed = false;
+      break;
+  }
+});
 })();
 
 /******/ })()
