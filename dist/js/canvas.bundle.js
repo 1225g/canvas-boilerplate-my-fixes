@@ -104,12 +104,6 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ "./src/js/utils.js");
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_utils__WEBPACK_IMPORTED_MODULE_0__);
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
-function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
-function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 var canvas = document.querySelector('canvas');
 var c = canvas.getContext('2d');
@@ -117,66 +111,7 @@ canvas.width = 1024;
 canvas.height = 576;
 c.fillRect(0, 0, canvas.width, canvas.height);
 var gravity = 0.7;
-var Sprite = /*#__PURE__*/function () {
-  function Sprite(_ref) {
-    var position = _ref.position,
-      velocity = _ref.velocity,
-      _ref$color = _ref.color,
-      color = _ref$color === void 0 ? 'red' : _ref$color,
-      offset = _ref.offset;
-    _classCallCheck(this, Sprite);
-    this.position = position;
-    this.velocity = velocity;
-    this.width = 50;
-    this.height = 150;
-    this.lastKey;
-    this.attackBox = {
-      position: {
-        x: this.position.x,
-        y: this.position.y
-      },
-      offset: offset,
-      width: 100,
-      height: 50
-    };
-    this.color = color;
-    this.isAttacking;
-    this.health = 100;
-  }
-  return _createClass(Sprite, [{
-    key: "draw",
-    value: function draw() {
-      c.fillStyle = this.color;
-      c.fillRect(this.position.x, this.position.y, this.width, this.height);
-
-      // attack box
-      if (this.isAttacking) {
-        c.fillStyle = 'green';
-        c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height);
-      }
-    }
-  }, {
-    key: "update",
-    value: function update() {
-      this.draw();
-      this.attackBox.position.x = this.position.x + this.attackBox.offset.x;
-      this.attackBox.position.y = this.position.y;
-      this.position.x += this.velocity.x;
-      this.position.y += this.velocity.y;
-      if (this.position.y + this.height + this.velocity.y >= canvas.height) this.velocity.y = 0;else this.velocity.y += gravity;
-    }
-  }, {
-    key: "attack",
-    value: function attack() {
-      var _this = this;
-      this.isAttacking = true;
-      setTimeout(function () {
-        _this.isAttacking = false;
-      }, 100);
-    }
-  }]);
-}();
-var player = new Sprite({
+var player = new Fighter({
   position: {
     x: 0,
     y: 0
@@ -190,7 +125,7 @@ var player = new Sprite({
     y: 0
   }
 });
-var enemy = new Sprite({
+var enemy = new Fighter({
   position: {
     x: 400,
     y: 100
@@ -223,15 +158,15 @@ var keys = {
     pressed: false
   }
 };
-function rectangularCollision(_ref2) {
-  var rectangle1 = _ref2.rectangle1,
-    rectangle2 = _ref2.rectangle2;
+function rectangularCollision(_ref) {
+  var rectangle1 = _ref.rectangle1,
+    rectangle2 = _ref.rectangle2;
   return rectangle1.attackBox.position.x + rectangle1.attackBox.width >= rectangle2.position.x && rectangle1.attackBox.position.x <= rectangle2.position.x + rectangle2.width && rectangle1.attackBox.position.y + rectangle1.attackBox.height >= rectangle2.position.y && rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height;
 }
-function determineWinner(_ref3) {
-  var player = _ref3.player,
-    enemy = _ref3.enemy,
-    timerId = _ref3.timerId;
+function determineWinner(_ref2) {
+  var player = _ref2.player,
+    enemy = _ref2.enemy,
+    timerId = _ref2.timerId;
   clearTimeout(timerId);
   document.querySelector('#displayText').style.display = 'flex';
   if (player.health === enemy.health) {
