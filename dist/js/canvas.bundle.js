@@ -141,6 +141,7 @@ var Sprite = /*#__PURE__*/function () {
     };
     this.color = color;
     this.isAttacking;
+    this.health = 100;
   }
   return _createClass(Sprite, [{
     key: "draw",
@@ -227,6 +228,37 @@ function rectangularCollision(_ref2) {
     rectangle2 = _ref2.rectangle2;
   return rectangle1.attackBox.position.x + rectangle1.attackBox.width >= rectangle2.position.x && rectangle1.attackBox.position.x <= rectangle2.position.x + rectangle2.width && rectangle1.attackBox.position.y + rectangle1.attackBox.height >= rectangle2.position.y && rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height;
 }
+function determineWinner(_ref3) {
+  var player = _ref3.player,
+    enemy = _ref3.enemy,
+    timerId = _ref3.timerId;
+  clearTimeout(timerId);
+  document.querySelector('#displayText').style.display = 'flex';
+  if (player.health === enemy.health) {
+    document.querySelector('#displayText').innerHTML = 'Tie';
+  } else if (player.health > enemy.health) {
+    document.querySelector('#displayText').innerHTML = 'Player 1 Wins';
+  } else {
+    document.querySelector('#displayText').innerHTML = 'Player 2 Wins';
+  }
+}
+var timer = 60;
+var timerId;
+function decreaseTimer() {
+  if (timer > 0) {
+    timerId = setTimeout(decreaseTimer, 1000);
+    timer--;
+    document.querySelector('#timer').innerHTML = timer;
+  }
+  if (timer === 0) {
+    determineWinner({
+      player: player,
+      enemy: enemy,
+      timerId: timerId
+    });
+  }
+}
+decreaseTimer();
 function animate() {
   requestAnimationFrame(animate);
   c.fillStyle = 'black';
@@ -246,14 +278,25 @@ function animate() {
     rectangle2: enemy
   }) && player.isAttacking) {
     player.isAttacking = false;
-    console.log('go');
+    enemy.health -= 20;
+    document.querySelector('#enemyHealth').style.width = enemy.health + '%';
   }
   if (rectangularCollision({
     rectangle1: enemy,
     rectangle2: player
   }) && enemy.isAttacking) {
     enemy.isAttacking = false;
-    console.log('enemy attack successful');
+    player.health -= 20;
+    document.querySelector('#playerHealth').style.width = player.health + '%';
+  }
+
+  // end game based on health
+  if (enemy.health <= 0 || player.health <= 0) {
+    determineWinner({
+      player: player,
+      enemy: enemy,
+      timerId: timerId
+    });
   }
 }
 animate();
