@@ -1,13 +1,14 @@
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: './src/js/canvas.js',
-  output: {
-    path: __dirname + '/dist/',
-    filename: './js/canvas.bundle.js'
-  },
+  // entry: './src/js/canvas.js',
+  // output: {
+  //   path: __dirname + '/dist/',
+  //   filename: './js/canvas.bundle.js'
+  // },
   module: {
     rules: [
       {
@@ -16,7 +17,8 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env']
+            presets: ['@babel/preset-env'],
+            plugins: ["@babel/plugin-proposal-class-properties"]
           }
         }
       },
@@ -42,6 +44,11 @@ module.exports = {
       filename: 'index.html',
       favicon: 'favicon.ico',
       template: 'src/index.html'
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'src', to: '' } // Copies src to dist/
+      ]
     })
   ],
   watch: true,

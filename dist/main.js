@@ -1,13 +1,20 @@
 /******/ (() => { // webpackBootstrap
-/*!**************************!*\
-  !*** ./src/js/canvas.js ***!
-  \**************************/
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
 var canvas = document.querySelector('canvas');
 var c = canvas.getContext('2d');
 canvas.width = 1024;
 canvas.height = 576;
 c.fillRect(0, 0, canvas.width, canvas.height);
 var gravity = 0.7;
+var background = new Sprite({
+  position: {
+    x: 0,
+    y: 0
+  },
+  imageSrc: '../img/background.png'
+});
 var player = new Fighter({
   position: {
     x: 0,
@@ -54,46 +61,12 @@ var keys = {
     pressed: false
   }
 };
-function rectangularCollision(_ref) {
-  var rectangle1 = _ref.rectangle1,
-    rectangle2 = _ref.rectangle2;
-  return rectangle1.attackBox.position.x + rectangle1.attackBox.width >= rectangle2.position.x && rectangle1.attackBox.position.x <= rectangle2.position.x + rectangle2.width && rectangle1.attackBox.position.y + rectangle1.attackBox.height >= rectangle2.position.y && rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height;
-}
-function determineWinner(_ref2) {
-  var player = _ref2.player,
-    enemy = _ref2.enemy,
-    timerId = _ref2.timerId;
-  clearTimeout(timerId);
-  document.querySelector('#displayText').style.display = 'flex';
-  if (player.health === enemy.health) {
-    document.querySelector('#displayText').innerHTML = 'Tie';
-  } else if (player.health > enemy.health) {
-    document.querySelector('#displayText').innerHTML = 'Player 1 Wins';
-  } else {
-    document.querySelector('#displayText').innerHTML = 'Player 2 Wins';
-  }
-}
-var timer = 60;
-var timerId;
-function decreaseTimer() {
-  if (timer > 0) {
-    timerId = setTimeout(decreaseTimer, 1000);
-    timer--;
-    document.querySelector('#timer').innerHTML = timer;
-  }
-  if (timer === 0) {
-    determineWinner({
-      player: player,
-      enemy: enemy,
-      timerId: timerId
-    });
-  }
-}
 decreaseTimer();
 function animate() {
   requestAnimationFrame(animate);
   c.fillStyle = 'black';
   c.fillRect(0, 0, canvas.width, canvas.height);
+  background.update();
   player.update();
   enemy.update();
   player.velocity.x = 0;
@@ -181,4 +154,4 @@ addEventListener('keyup', function (event) {
 });
 /******/ })()
 ;
-//# sourceMappingURL=canvas.bundle.js.map
+//# sourceMappingURL=main.js.map
