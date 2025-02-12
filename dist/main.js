@@ -2,6 +2,10 @@
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var canvas = document.querySelector('canvas');
 var c = canvas.getContext('2d');
 canvas.width = 1024;
@@ -24,7 +28,7 @@ var shop = new Sprite({
   scale: 2.75,
   framesMax: 6
 });
-var player = new Fighter({
+var player = new Fighter(_defineProperty(_defineProperty(_defineProperty({
   position: {
     x: 0,
     y: 0
@@ -36,9 +40,47 @@ var player = new Fighter({
   offset: {
     x: 0,
     y: 0
+  },
+  imageSrc: '../img/samuraiMack/Idle.png',
+  framesMax: 8,
+  scale: 2.5
+}, "offset", {
+  x: 215,
+  y: 157
+}), "sprites", {
+  idle: {
+    imageSrc: '../img/samuraiMack/Idle.png',
+    framesMax: 8
+  },
+  run: {
+    imageSrc: '../img/samuraiMack/Run.png',
+    framesMax: 8
+  },
+  jump: {
+    imageSrc: '../img/samuraiMack/Jump.png',
+    framesMax: 2
+  },
+  fall: {
+    imageSrc: '../img/samuraiMack/Fall.png',
+    framesMax: 2
+  },
+  attack1: {
+    imageSrc: '../img/samuraiMack/Attack1.png',
+    framesMax: 6
+  },
+  takeHit: {
+    imageSrc: '../img/samuraiMack/Take Hit - white silhouette.png',
+    framesMax: 4
   }
-});
-var enemy = new Fighter({
+}), "attackBox", {
+  offset: {
+    x: 100,
+    y: 50
+  },
+  width: 160,
+  height: 50
+}));
+var enemy = new Fighter(_defineProperty(_defineProperty(_defineProperty({
   position: {
     x: 400,
     y: 100
@@ -51,8 +93,46 @@ var enemy = new Fighter({
   offset: {
     x: -50,
     y: 0
+  },
+  imageSrc: '../img/kenji/Idle.png',
+  framesMax: 4,
+  scale: 2.5
+}, "offset", {
+  x: 215,
+  y: 167
+}), "sprites", {
+  idle: {
+    imageSrc: '../img/kenji/Idle.png',
+    framesMax: 4
+  },
+  run: {
+    imageSrc: '../img/kenji/Run.png',
+    framesMax: 8
+  },
+  jump: {
+    imageSrc: '../img/kenji/Jump.png',
+    framesMax: 2
+  },
+  fall: {
+    imageSrc: '../img/kenji/Fall.png',
+    framesMax: 2
+  },
+  attack1: {
+    imageSrc: '../img/kenji/Attack1.png',
+    framesMax: 4
+  },
+  takeHit: {
+    imageSrc: '../img/kenji/Takehit.png',
+    framesMax: 3
   }
-});
+}), "attackBox", {
+  offset: {
+    x: -170,
+    y: 50
+  },
+  width: 175,
+  height: 50
+}));
 var keys = {
   a: {
     pressed: false
@@ -81,27 +161,72 @@ function animate() {
   enemy.update();
   player.velocity.x = 0;
   enemy.velocity.x = 0;
-  if (keys.a.pressed && player.lastKey === 'a') player.velocity.x = -5;
-  if (keys.d.pressed && player.lastKey === 'd') player.velocity.x = 5;
-  if (keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') enemy.velocity.x = -5;
-  if (keys.ArrowRight.pressed && enemy.lastKey === 'ArrowRight') enemy.velocity.x = 5;
 
-  // detect for collision
+  // player movement
+
+  if (keys.a.pressed && player.lastKey === 'a') {
+    player.velocity.x = -5;
+    player.switchSprite('run');
+  } else if (keys.d.pressed && player.lastKey === 'd') {
+    player.velocity.x = 5;
+    player.switchSprite('run');
+  } else {
+    player.switchSprite('idle');
+  }
+
+  // jumping
+  if (player.velocity.y < 0) {
+    player.switchSprite('jump');
+  } else if (player.velocity.y > 0) {
+    player.switchSprite('fall');
+  }
+
+  // Enemy movement
+  if (keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') {
+    enemy.velocity.x = -5;
+    enemy.switchSprite('run');
+  } else if (keys.ArrowRight.pressed && enemy.lastKey === 'ArrowRight') {
+    enemy.velocity.x = 5;
+    enemy.switchSprite('run');
+  } else {
+    enemy.switchSprite('idle');
+  }
+
+  // jumping
+  if (enemy.velocity.y < 0) {
+    enemy.switchSprite('jump');
+  } else if (enemy.velocity.y > 0) {
+    enemy.switchSprite('fall');
+  }
+
+  // detect for collision & enemy gets hit
   if (rectangularCollision({
     rectangle1: player,
     rectangle2: enemy
-  }) && player.isAttacking) {
+  }) && player.isAttacking && player.framesCurrent === 4) {
+    enemy.takeHit();
     player.isAttacking = false;
-    enemy.health -= 20;
     document.querySelector('#enemyHealth').style.width = enemy.health + '%';
   }
+
+  // if player misses
+  if (player.isAttacking && player.framesCurrent === 4) {
+    player.isAttacking = false;
+  }
+
+  // this is where our player gets hit
   if (rectangularCollision({
     rectangle1: enemy,
     rectangle2: player
-  }) && enemy.isAttacking) {
+  }) && enemy.isAttacking && enemy.framesCurrent === 2) {
+    player.takeHit();
     enemy.isAttacking = false;
-    player.health -= 20;
     document.querySelector('#playerHealth').style.width = player.health + '%';
+  }
+
+  // if enemy misses
+  if (enemy.isAttacking && enemy.framesCurrent === 2) {
+    enemy.isAttacking = false;
   }
 
   // end game based on health
